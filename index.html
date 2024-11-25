@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Recipe Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        .category-container {
+            margin: 20px 0;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .food-button {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .food-button:hover {
+            transform: scale(1.1);
+        }
+        .food-button img {
+            width: 40px;
+            height: 40px;
+        }
+        .food-button span {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+        .typing-box {
+            width: 90%;
+            height: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+        }
+        .submit-button {
+            margin: 20px 0;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.2s;
+        }
+        .submit-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mealify: Kids Recipe Picker</h1>
+
+    <!-- Veggie Section -->
+    <div class="category-container">
+        <h2>Choose Veggies:</h2>
+        <div class="button-container">
+            <div class="food-button" data-food="Broccoli">
+                <img src="images/Broccoli.png" alt="Broccoli">
+                <span>Broccoli</span>
+            </div>
+            <div class="food-button" data-food="Carrot">
+                <img src="images/carrot.png" alt="Carrot">
+                <span>Carrot</span>
+            </div>
+            <div class="food-button" data-food="Tomato">
+                <img src="images/tomato.png" alt="Tomato">
+                <span>Tomato</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carb Section -->
+    <div class="category-container">
+        <h2>Choose Carbs:</h2>
+        <div class="button-container">
+            <div class="food-button" data-food="Rice">
+                <img src="images/Rice.png" alt="Rice">
+                <span>Rice</span>
+            </div>
+            <div class="food-button" data-food="Pasta">
+                <img src="images/Pasta.png" alt="Pasta">
+                <span>Pasta</span>
+            </div>
+            <div class="food-button" data-food="Potato">
+                <img src="images/Potato.png" alt="Potato">
+                <span>Potato</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Meat/Fish Section -->
+    <div class="category-container">
+        <h2>Choose Meat or Fish:</h2>
+        <div class="button-container">
+            <div class="food-button" data-food="Chicken">
+                <img src="images/Chicken.png" alt="Chicken">
+                <span>Chicken</span>
+            </div>
+            <div class="food-button" data-food="Salmon">
+                <img src="images/salmon.png" alt="Salmon">
+                <span>Salmon</span>
+            </div>
+            <div class="food-button" data-food="Beef">
+                <img src="images/beef.png" alt="Beef">
+                <span>Beef</span>
+            </div>
+        </div>
+    </div>
+
+    <textarea class="typing-box" id="typingBox" readonly>My kid loves </textarea>
+    <button class="submit-button" onclick="generatePrompt()">That's it!</button>
+
+    <div id="response" style="margin-top: 20px; font-size: 16px;"></div>
+
+    <script>
+        const selectedFoods = [];
+
+        document.querySelectorAll('.food-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const foodItem = button.getAttribute('data-food');
+
+                if (!selectedFoods.includes(foodItem)) {
+                    selectedFoods.push(foodItem);
+
+                    const typingBox = document.getElementById('typingBox');
+                    typingBox.value = `My kid loves ${selectedFoods.join(', ')}`;
+                }
+            });
+        });
+
+        async function generatePrompt() {
+            const prompt = document.getElementById('typingBox').value.trim() +
+                " please make me 5 recipes that are kid-proof and kids will probably like.";
+
+            const apiKey = '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';
+            const apiUrl = 'https://api.openai.com/v1/completions';
+            const responseDiv = document.getElementById('response');
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`,
+                    },
+                    body: JSON.stringify({
+                        model: 'text-davinci-003',
+                        prompt: prompt,
+                        max_tokens: 150,
+                    }),
+                });
+
+                const data = await response.json();
+                const aiResponse = data.choices[0].text.trim();
+
+                responseDiv.innerHTML = `<strong>ChatGPT Response:</strong><br>${aiResponse}`;
+            } catch (error) {
+                responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
