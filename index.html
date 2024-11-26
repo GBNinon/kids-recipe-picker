@@ -25,59 +25,46 @@
             gap: 15px;
         }
         .food-button {
-            display: inline-block;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             width: 80px;
             height: 80px;
-            background-color: transparent;
-            cursor: pointer;
+            background: none;
             border: none;
-            transition: transform 0.2s;
-        }
-        .food-button:hover {
-            transform: scale(1.1);
+            cursor: pointer;
         }
         .food-button img {
-            width: 70px;
-            height: 70px;
-        }
-        .typing-box {
-            width: 380px;
+            width: 50px;
             height: 50px;
-            margin: 20px auto;
+        }
+        .input-box,
+        .output-box {
+            width: 90%;
+            max-width: 600px;
+            height: 100px;
+            margin: 10px auto;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
             overflow-y: auto;
+            text-align: left;
         }
         .submit-button {
             margin: 20px 0;
             padding: 10px 20px;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 16px;
             cursor: pointer;
             background-color: #28a745;
             color: #fff;
             border: none;
             border-radius: 5px;
-            transition: background-color 0.2s;
         }
         .submit-button:hover {
             background-color: #218838;
-        }
-        .response-container {
-            width: 380px;
-            margin: 30px auto;
-            padding: 15px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #fff;
-            text-align: left;
-            font-size: 16px;
-            line-height: 1.5;
-            overflow-y: auto;
-            max-height: 400px;
         }
     </style>
 </head>
@@ -131,17 +118,10 @@
         </div>
     </div>
 
-    <div>
-        <textarea class="typing-box" id="typingBox" readonly>
-Tonight's inspiration with 3 kids proof recipes based on: 
-        </textarea>
-        <button class="submit-button" onclick="generatePrompt()">That's it!</button>
-    </div>
-
-    <div id="response" class="response-container">
-        <strong>ChatGPT Response:</strong><br>
-        <span id="responseText">The recipes will appear here.</span>
-    </div>
+    <!-- Input and Output Fields -->
+    <textarea class="input-box" id="inputBox" readonly>Tonight's inspiration with 3 kids proof recipes based on: </textarea>
+    <button class="submit-button" onclick="generatePrompt()">That's it!</button>
+    <div class="output-box" id="response">The recipes will appear here.</div>
 
     <script>
         const selectedFoods = [];
@@ -149,22 +129,19 @@ Tonight's inspiration with 3 kids proof recipes based on:
         document.querySelectorAll('.food-button').forEach(button => {
             button.addEventListener('click', () => {
                 const foodItem = button.getAttribute('data-food');
-
                 if (!selectedFoods.includes(foodItem)) {
                     selectedFoods.push(foodItem);
-
-                    const typingBox = document.getElementById('typingBox');
-                    typingBox.value = `Tonight's inspiration with 3 kids proof recipes based on: ${selectedFoods.join(', ')}`;
+                    const inputBox = document.getElementById('inputBox');
+                    inputBox.value = `Tonight's inspiration with 3 kids proof recipes based on: ${selectedFoods.join(', ')}`;
                 }
             });
         });
 
         async function generatePrompt() {
-            const typingBox = document.getElementById('typingBox');
-            const prompt = typingBox.value.trim();
+            const prompt = `Please show me 3 recipes that are kid-proof and creative, with looks in a way that most children would love to eat it. With only their favorite ingredients inside. My kid loves: ${selectedFoods.join(', ')}.`;
 
             const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
-            const responseDiv = document.getElementById('responseText');
+            const responseDiv = document.getElementById('response');
 
             try {
                 const response = await fetch(apiUrl, {
@@ -176,14 +153,11 @@ Tonight's inspiration with 3 kids proof recipes based on:
                 });
 
                 const data = await response.json();
+                const aiResponse = data.choices[0].message.content.trim();
 
-                if (data.choices && data.choices[0].message.content) {
-                    responseDiv.innerHTML = data.choices[0].message.content;
-                } else {
-                    responseDiv.innerHTML = 'No recipes found. Please try again.';
-                }
+                responseDiv.textContent = aiResponse;
             } catch (error) {
-                responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+                responseDiv.textContent = `Error: Unable to fetch response. ${error.message}`;
             }
         }
     </script>
