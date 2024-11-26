@@ -49,29 +49,46 @@
             font-size: 12px;
         }
         .typing-box {
-            width: 90%;
-            height: 100px;
+            width: 70%;
+            height: 40px;
             margin: 20px auto;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
+            display: inline-block;
+            vertical-align: middle;
         }
         .submit-button {
-            margin: 20px 0;
-            padding: 15px 30px;
-            font-size: 18px;
+            margin-left: 10px;
+            padding: 10px 20px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             background-color: #28a745;
             color: #fff;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             transition: background-color 0.2s;
+            display: inline-block;
+            vertical-align: middle;
         }
         .submit-button:hover {
             background-color: #218838;
+        }
+        .response-container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.5;
+            overflow-y: auto;
+            max-height: 300px;
         }
     </style>
 </head>
@@ -135,10 +152,15 @@
         </div>
     </div>
 
-    <textarea class="typing-box" id="typingBox" readonly>Please make me 5 recipes that are kid-proof and most children could love. My kid loves: </textarea>
-    <button class="submit-button" onclick="generatePrompt()">That's it!</button>
+    <div>
+        <textarea class="typing-box" id="typingBox" readonly>My kid loves </textarea>
+        <button class="submit-button" onclick="generatePrompt()">That's it!</button>
+    </div>
 
-    <div id="response" style="margin-top: 20px; font-size: 16px;"></div>
+    <div id="response" class="response-container">
+        <strong>ChatGPT Response:</strong><br>
+        <span id="responseText">The generated recipes will appear here.</span>
+    </div>
 
     <script>
         const selectedFoods = [];
@@ -151,16 +173,17 @@
                     selectedFoods.push(foodItem);
 
                     const typingBox = document.getElementById('typingBox');
-                    typingBox.value = `Please make me 5 recipes that are kid-proof and most children could love. My kid loves: ${selectedFoods.join(', ')}`;
+                    typingBox.value = `My kid loves ${selectedFoods.join(', ')}`;
                 }
             });
         });
 
         async function generatePrompt() {
-            const prompt = document.getElementById('typingBox').value.trim();
+            const prompt = document.getElementById('typingBox').value.trim() +
+                " Please make me 5 recipes that are kid-proof and most children could love.";
 
             const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
-            const responseDiv = document.getElementById('response');
+            const responseDiv = document.getElementById('responseText');
 
             try {
                 const response = await fetch(apiUrl, {
@@ -172,9 +195,12 @@
                 });
 
                 const data = await response.json();
-                const aiResponse = data.choices[0].message.content.trim();
 
-                responseDiv.innerHTML = `<strong>ChatGPT Response:</strong><br>${aiResponse}`;
+                if (data.choices && data.choices[0].message.content) {
+                    responseDiv.innerHTML = data.choices[0].message.content;
+                } else {
+                    responseDiv.innerHTML = 'No recipes found. Please try again.';
+                }
             } catch (error) {
                 responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
             }
