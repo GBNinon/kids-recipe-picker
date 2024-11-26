@@ -135,7 +135,7 @@
         </div>
     </div>
 
-    <textarea class="typing-box" id="typingBox" readonly>My kid loves </textarea>
+    <textarea class="typing-box" id="typingBox" readonly>Please make me 5 recipes that are kid-proof and most children could love. My kid loves: </textarea>
     <button class="submit-button" onclick="generatePrompt()">That's it!</button>
 
     <div id="response" style="margin-top: 20px; font-size: 16px;"></div>
@@ -151,14 +151,13 @@
                     selectedFoods.push(foodItem);
 
                     const typingBox = document.getElementById('typingBox');
-                    typingBox.value = `My kid loves ${selectedFoods.join(', ')}`;
+                    typingBox.value = `Please make me 5 recipes that are kid-proof and most children could love. My kid loves: ${selectedFoods.join(', ')}`;
                 }
             });
         });
 
         async function generatePrompt() {
-            const prompt = document.getElementById('typingBox').value.trim() +
-                " please make me 5 recipes that are kid-proof and kids will probably like.";
+            const prompt = document.getElementById('typingBox').value.trim();
 
             const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
             const responseDiv = document.getElementById('response');
@@ -173,7 +172,7 @@
                 });
 
                 const data = await response.json();
-                const aiResponse = data.choices[0].text.trim();
+                const aiResponse = data.choices[0].message.content.trim();
 
                 responseDiv.innerHTML = `<strong>ChatGPT Response:</strong><br>${aiResponse}`;
             } catch (error) {
