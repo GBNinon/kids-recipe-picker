@@ -160,8 +160,7 @@
             const prompt = document.getElementById('typingBox').value.trim() +
                 " please make me 5 recipes that are kid-proof and kids will probably like.";
 
-            const apiKey = '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';
-            const apiUrl = 'https://api.openai.com/v1/completions';
+            const apiUrl = 'https://your-vercel-deployment-url.vercel.app/api/generate';
             const responseDiv = document.getElementById('response');
 
             try {
@@ -169,13 +168,8 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`,
                     },
-                    body: JSON.stringify({
-                        model: 'text-davinci-003',
-                        prompt: prompt,
-                        max_tokens: 150,
-                    }),
+                    body: JSON.stringify({ prompt }),
                 });
 
                 const data = await response.json();
