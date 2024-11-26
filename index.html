@@ -41,6 +41,7 @@
             resize: none;
             overflow-y: auto;
             max-height: 200px;
+            white-space: pre-wrap; /* Preserve line breaks */
         }
         .submit-button {
             margin: 20px 0;
@@ -98,7 +99,13 @@
 
                 if (!selectedFoods.includes(foodItem)) {
                     selectedFoods.push(foodItem);
-                    promptBox.value = `Tonight's inspiration with 3 kids proof recipes based on: ${selectedFoods.join(', ')}`;
+
+                    // Display 3 ingredients per line
+                    const lines = [];
+                    for (let i = 0; i < selectedFoods.length; i += 3) {
+                        lines.push(selectedFoods.slice(i, i + 3).join(', '));
+                    }
+                    promptBox.value = `Tonight's inspiration with 3 kids proof recipes based on:\n${lines.join('\n')}`;
                 }
             });
         });
