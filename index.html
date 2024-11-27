@@ -4,117 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mealify AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Karla', sans-serif;
             text-align: center;
-            background-color: #F1E1FF;
+            background-color: #e6d4f0;
             color: #333;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
-
         h1 {
-            font-size: 18px;
-            margin: 20px 0;
-            color: #2C2C54;
+            margin-top: 0;
+            font-size: 24px;
+            color: #3a1e68;
         }
-
         h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            color: #3a1e68;
+            margin: 20px 0;
         }
-
         .category-container {
             margin: 20px 0;
         }
-
         .button-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
         }
-
         .food-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 80px;
-            height: 80px;
-            cursor: pointer;
-            background-color: transparent;
+            background: none;
             border: none;
-            border-radius: 10px;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
             transition: transform 0.2s;
         }
-
         .food-button img {
             width: 60px;
             height: 60px;
         }
-
         .food-button:hover {
             transform: scale(1.1);
         }
-
-        .prompt-box, .response-box {
-            width: 80%;
+        #promptBox, #responseBox {
+            width: calc(100% - 40px);
             max-width: 600px;
-            height: 100px;
-            margin: 20px auto;
+            height: 80px;
+            margin: 10px auto;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
             overflow: auto;
-            background-color: #fff;
-            color: #333;
         }
-
-        .action-button {
-            margin: 10px auto;
-            padding: 15px 30px;
+        #promptBox {
+            display: inline-block;
+            vertical-align: top;
+        }
+        #showButton {
+            margin-left: -4px;
+            padding: 15px;
             font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            background-color: #ECFB8F;
-            color: #2C2C54;
+            background-color: #e5ff69;
+            color: #3a1e68;
             border: none;
             border-radius: 10px;
+            cursor: pointer;
             transition: background-color 0.2s;
+            height: 80px;
         }
-
-        .action-button:hover {
-            background-color: #D6E871;
+        #showButton:hover {
+            background-color: #d6f655;
         }
-
-        .output-container {
-            margin: 20px auto;
-            width: 80%;
-            max-width: 600px;
-            text-align: left;
-        }
-
-        .output-container strong {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #2C2C54;
+        @media (max-width: 768px) {
+            #promptBox, #responseBox {
+                width: calc(90% - 40px);
+            }
+            .button-container {
+                gap: 10px;
+            }
+            .food-button img {
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Mealify AI</h1>
-    <h2>Hey you! Choose your kid's favorites and I will create 3 recipes for you that your kid will love!</h2>
-
+    <p>Hey you! Choose your kid's favorites and I will create 3 recipes for you that your kid will love!</p>
+    
     <!-- Veggie Section -->
     <div class="category-container">
         <h2>First choose one or two veggies:</h2>
         <div class="button-container">
             <button class="food-button" data-food="Broccoli">
-                <img src="images/broccoli.png" alt="Broccoli">
+                <img src="images/Broccoli.png" alt="Broccoli">
             </button>
             <button class="food-button" data-food="Carrot">
                 <img src="images/carrot.png" alt="Carrot">
@@ -130,13 +118,22 @@
         <h2>What comes with it?</h2>
         <div class="button-container">
             <button class="food-button" data-food="Rice">
-                <img src="images/rice.png" alt="Rice">
+                <img src="images/Rice.png" alt="Rice">
             </button>
             <button class="food-button" data-food="Pasta">
-                <img src="images/pasta.png" alt="Pasta">
+                <img src="images/Pasta.png" alt="Pasta">
             </button>
             <button class="food-button" data-food="Potato">
-                <img src="images/potato.png" alt="Potato">
+                <img src="images/Potato.png" alt="Potato">
+            </button>
+        </div>
+    </div>
+
+    <!-- Meat/Fish Section -->
+    <div class="category-container">
+        <div class="button-container">
+            <button class="food-button" data-food="Chicken">
+                <img src="images/Chicken.png" alt="Chicken">
             </button>
             <button class="food-button" data-food="Salmon">
                 <img src="images/salmon.png" alt="Salmon">
@@ -147,41 +144,27 @@
         </div>
     </div>
 
-    <!-- Input Field -->
-    <textarea class="prompt-box" id="promptBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
-
-    <button class="action-button" onclick="generatePrompt()">Show me GO!</button>
-
-    <!-- Output Field -->
-    <div class="output-container">
-        <div class="response-box" id="responseBox">Your recipes will appear here...</div>
-    </div>
+    <textarea id="promptBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
+    <button id="showButton" onclick="generatePrompt()">Show me GO!</button>
+    <textarea id="responseBox" readonly>Your recipes will appear here...</textarea>
 
     <script>
         const selectedFoods = [];
-
         document.querySelectorAll('.food-button').forEach(button => {
             button.addEventListener('click', () => {
                 const foodItem = button.getAttribute('data-food');
-
                 if (!selectedFoods.includes(foodItem)) {
                     selectedFoods.push(foodItem);
-
                     const promptBox = document.getElementById('promptBox');
-                    const formattedFoods = selectedFoods
-                        .map((food, index) => ((index + 1) % 3 === 0 ? food + '\n' : food))
-                        .join(', ');
-
-                    promptBox.value = `Tonight's inspiration with 3 kids proof recipes based on:\n${formattedFoods}`;
+                    promptBox.value = `Tonight's inspiration with 3 kids proof recipes based on: \n${selectedFoods.join(', ')}`;
                 }
             });
         });
 
         async function generatePrompt() {
-            const prompt = document.getElementById('promptBox').value.trim();
-
+            const prompt = document.getElementById('promptBox').value.trim() + " Please show me 3 recipes that are kid-proof, creative, and appealing to children.";
             const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
-            const responseBox = document.getElementById('responseBox');
+            const responseDiv = document.getElementById('responseBox');
 
             try {
                 const response = await fetch(apiUrl, {
@@ -192,12 +175,15 @@
                     body: JSON.stringify({ prompt }),
                 });
 
+                if (!response.ok) {
+                    throw new Error('Failed to fetch');
+                }
+
                 const data = await response.json();
                 const aiResponse = data.choices[0].text.trim();
-
-                responseBox.textContent = aiResponse;
+                responseDiv.value = aiResponse;
             } catch (error) {
-                responseBox.textContent = `Error: Unable to fetch response. ${error.message}`;
+                responseDiv.value = `Error: Unable to fetch response. ${error.message}`;
             }
         }
     </script>
