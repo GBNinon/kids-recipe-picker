@@ -41,20 +41,27 @@
             width: 60px;
             height: 60px;
         }
-        .typing-box {
+        .typing-box-container {
+            position: relative;
             width: 80%;
             max-width: 400px;
-            height: 50px;
             margin: 20px auto;
+        }
+        .typing-box {
+            width: 100%;
+            height: 50px;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
-            display: inline-block;
-            vertical-align: top;
+            box-sizing: border-box;
         }
         .submit-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             height: 50px;
             font-size: 16px;
             font-weight: bold;
@@ -63,9 +70,6 @@
             color: #4a148c;
             border: none;
             border-radius: 5px;
-            margin-left: -4px;
-            display: inline-block;
-            vertical-align: top;
         }
         .response-box {
             width: 80%;
@@ -132,7 +136,7 @@
         </div>
     </div>
 
-    <div style="display: flex; justify-content: center;">
+    <div class="typing-box-container">
         <textarea class="typing-box" id="typingBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
         <button class="submit-button" onclick="generatePrompt()">Show me GO!</button>
     </div>
