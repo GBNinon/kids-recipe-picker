@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,47 +9,62 @@
         body {
             font-family: 'Karla', sans-serif;
             text-align: center;
-            background-color: #f3e5f5; /* Updated color */
+            background-color: #f3e5f5;
             color: #333;
         }
+
         h1 {
             margin: 20px 0;
             font-size: 24px;
             color: #4a148c;
         }
+
         h2 {
             margin-top: 20px;
             font-size: 18px;
             color: #4a148c;
         }
-        .category-container {
-            margin: 20px 0;
-        }
-        .button-container {
+
+        .container {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
         }
+
+        .category-container {
+            width: 100%;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            margin-top: 10px;
+        }
+
         .food-button {
-            display: inline-block;
-            width: 80px;
-            height: 80px;
             cursor: pointer;
-            text-align: center;
         }
+
         .food-button img {
             width: 60px;
             height: 60px;
         }
-        .typing-box-container {
-            position: relative;
-            width: 80%;
-            max-width: 400px;
-            margin: 20px auto;
-        }
-        .typing-box {
+
+        .input-container {
+            display: flex;
+            align-items: center;
             width: 100%;
+            gap: 10px;
+        }
+
+        .typing-box {
+            flex-grow: 1;
             height: 50px;
             padding: 10px;
             border: 2px solid #ccc;
@@ -57,25 +73,22 @@
             resize: none;
             box-sizing: border-box;
         }
+
         .submit-button {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
             height: 50px;
+            padding: 0 15px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            background-color: #ffff66; /* Updated color */
+            background-color: #ffff66;
             color: #4a148c;
             border: none;
             border-radius: 5px;
         }
+
         .response-box {
-            width: 80%;
-            max-width: 400px;
+            width: 100%;
             height: 150px;
-            margin: 20px auto;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
@@ -85,63 +98,68 @@
         }
     </style>
 </head>
+
 <body>
-    <h1>Mealify AI</h1>
-    <p>Hey you! Choose your kid's favorites and I will create 3 recipes for you that your kid will love!</p>
+    <div class="container">
+        <h1>Mealify AI</h1>
+        <p>Hey you! Choose your kid's favorites and I will create 3 recipes for you that your kid will love!</p>
 
-    <!-- Veggie Section -->
-    <div class="category-container">
-        <h2>First choose one or two veggies:</h2>
-        <div class="button-container">
-            <div class="food-button" data-food="Broccoli">
-                <img src="images/Broccoli.png" alt="Broccoli">
-            </div>
-            <div class="food-button" data-food="Carrot">
-                <img src="images/carrot.png" alt="Carrot">
-            </div>
-            <div class="food-button" data-food="Tomato">
-                <img src="images/tomato.png" alt="Tomato">
+        <!-- Veggie Section -->
+        <div class="category-container">
+            <h2>First choose one or two veggies:</h2>
+            <div class="button-container">
+                <div class="food-button" data-food="Broccoli">
+                    <img src="images/Broccoli.png" alt="Broccoli">
+                </div>
+                <div class="food-button" data-food="Carrot">
+                    <img src="images/carrot.png" alt="Carrot">
+                </div>
+                <div class="food-button" data-food="Tomato">
+                    <img src="images/tomato.png" alt="Tomato">
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Carb Section -->
-    <div class="category-container">
-        <h2>What comes with it?</h2>
-        <div class="button-container">
-            <div class="food-button" data-food="Rice">
-                <img src="images/Rice.png" alt="Rice">
-            </div>
-            <div class="food-button" data-food="Pasta">
-                <img src="images/Pasta.png" alt="Pasta">
-            </div>
-            <div class="food-button" data-food="Potato">
-                <img src="images/Potato.png" alt="Potato">
+        <!-- Carb Section -->
+        <div class="category-container">
+            <h2>What comes with it?</h2>
+            <div class="button-container">
+                <div class="food-button" data-food="Rice">
+                    <img src="images/Rice.png" alt="Rice">
+                </div>
+                <div class="food-button" data-food="Pasta">
+                    <img src="images/Pasta.png" alt="Pasta">
+                </div>
+                <div class="food-button" data-food="Potato">
+                    <img src="images/Potato.png" alt="Potato">
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Meat/Fish Section -->
-    <div class="category-container">
-        <div class="button-container">
-            <div class="food-button" data-food="Chicken">
-                <img src="images/Chicken.png" alt="Chicken">
-            </div>
-            <div class="food-button" data-food="Salmon">
-                <img src="images/salmon.png" alt="Salmon">
-            </div>
-            <div class="food-button" data-food="Beef">
-                <img src="images/beef.png" alt="Beef">
+        <!-- Meat/Fish Section -->
+        <div class="category-container">
+            <div class="button-container">
+                <div class="food-button" data-food="Chicken">
+                    <img src="images/Chicken.png" alt="Chicken">
+                </div>
+                <div class="food-button" data-food="Salmon">
+                    <img src="images/salmon.png" alt="Salmon">
+                </div>
+                <div class="food-button" data-food="Beef">
+                    <img src="images/beef.png" alt="Beef">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="typing-box-container">
-        <textarea class="typing-box" id="typingBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
-        <button class="submit-button" onclick="generatePrompt()">Show me GO!</button>
-    </div>
+        <!-- Input Container -->
+        <div class="input-container">
+            <textarea class="typing-box" id="typingBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
+            <button class="submit-button" onclick="generatePrompt()">Show me GO!</button>
+        </div>
 
-    <div id="response" class="response-box">Your recipes will appear here...</div>
+        <!-- Response Box -->
+        <div id="response" class="response-box">Your recipes will appear here...</div>
+    </div>
 
     <script>
         const selectedFoods = [];
@@ -189,4 +207,5 @@
         }
     </script>
 </body>
+
 </html>
