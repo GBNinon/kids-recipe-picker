@@ -10,13 +10,13 @@
             font-family: 'Karla', sans-serif;
             text-align: center;
             background-color: #f3e5f5;
-            color: #333;
+            color: #000;
         }
 
         h1 {
             margin: 20px 0;
             font-size: 24px;
-            color: #4a148c;
+            color: #ffffff;
         }
 
         h2 {
@@ -60,22 +60,24 @@
             display: flex;
             align-items: center;
             width: 100%;
+            max-width: 600px;
             gap: 10px;
         }
 
         .typing-box {
             flex-grow: 1;
-            height: 50px;
+            height: 80px;
             padding: 10px;
-            border: 2px solid #ccc;
+            border: none;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
             box-sizing: border-box;
+            background-color: #ffffff;
         }
 
         .submit-button {
-            height: 50px;
+            height: 80px;
             padding: 0 15px;
             font-size: 16px;
             font-weight: bold;
@@ -88,13 +90,24 @@
 
         .response-box {
             width: 100%;
+            max-width: 600px;
             height: 150px;
             padding: 10px;
-            border: 2px solid #ccc;
+            border: none;
             border-radius: 5px;
             font-size: 16px;
-            overflow: auto;
+            background-color: #ffffff;
+            overflow-y: auto;
             word-wrap: break-word;
+        }
+
+        .response-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .response-box::-webkit-scrollbar-thumb {
+            background-color: #d3d3d3;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -197,13 +210,17 @@
                     const data = await response.json();
                     const aiResponse = data.choices[0]?.message?.content.trim();
 
-                    responseDiv.innerHTML = `<strong>Recipe Suggestions:</strong><br>${aiResponse}`;
+                    responseDiv.innerHTML = formatResponse(aiResponse);
                 } else {
                     throw new Error(`Server Error: ${response.status}`);
                 }
             } catch (error) {
                 responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
             }
+        }
+
+        function formatResponse(text) {
+            return text.split('\n').map(line => `<p>${line}</p>`).join('');
         }
     </script>
 </body>
