@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,170 +8,158 @@
         body {
             font-family: 'Karla', sans-serif;
             text-align: center;
-            background-color: #f3e5f5;
+            background-color: #f3e5f5; /* Updated color */
             color: #000;
         }
-
         h1 {
             margin: 20px 0;
             font-size: 24px;
             color: #ffffff;
         }
-
         h2 {
             margin-top: 20px;
             font-size: 18px;
-            color: #4a148c;
+            color: #000;
         }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
         .category-container {
-            width: 100%;
+            margin: 20px 0;
         }
-
         .button-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 15px;
             justify-items: center;
-            margin-top: 10px;
+            margin: 0 auto;
+            max-width: 1000px;
         }
-
         .food-button {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
             cursor: pointer;
+            text-align: center;
         }
-
         .food-button img {
-            width: 60px;
-            height: 60px;
-        }
-
-        .input-container {
-            display: flex;
-            align-items: center;
             width: 100%;
-            max-width: 600px;
-            gap: 10px;
+            height: 100%;
         }
-
         .typing-box {
-            flex-grow: 1;
+            width: 80%;
+            max-width: 400px;
             height: 80px;
+            margin: 20px auto;
             padding: 10px;
-            border: none;
+            border: 2px solid #000;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
-            box-sizing: border-box;
-            background-color: #ffffff;
+            display: inline-block;
+            vertical-align: top;
+            background-color: rgba(255, 255, 255, 0.7);
         }
-
         .submit-button {
             height: 80px;
-            padding: 0 15px;
-            font-size: 16px;
+            width: 120px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
-            background-color: #ffff66;
-            color: #4a148c;
-            border: none;
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000;
+            border: 2px solid #000;
             border-radius: 5px;
+            margin-left: -4px;
+            display: inline-block;
+            vertical-align: top;
         }
-
+        .submit-button span {
+            display: block;
+            line-height: 40px;
+        }
         .response-box {
-            width: 100%;
-            max-width: 600px;
-            height: 150px;
+            width: 80%;
+            max-width: 400px;
+            height: 200px;
+            margin: 20px auto;
             padding: 10px;
-            border: none;
+            border: 2px solid #000;
             border-radius: 5px;
             font-size: 16px;
-            background-color: #ffffff;
-            overflow-y: auto;
+            overflow: auto;
             word-wrap: break-word;
+            background-color: rgba(255, 255, 255, 0.7);
         }
-
-        .response-box::-webkit-scrollbar {
-            width: 8px;
+        .video-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 300px;
         }
-
-        .response-box::-webkit-scrollbar-thumb {
-            background-color: #d3d3d3;
-            border-radius: 10px;
+        .text-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            text-align: left;
+            color: #000;
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Mealify AI</h1>
-        <p>Hey you! Choose your kid's favorites and I will create 3 recipes for you that your kid will love!</p>
+    <h1>Mealify AI</h1>
+    <p>Hey you! Choose your kid's favorites and I will create 3 recipes for you that your kid will love!</p>
 
-        <!-- Veggie Section -->
-        <div class="category-container">
-            <h2>First choose one or two veggies:</h2>
-            <div class="button-container">
-                <div class="food-button" data-food="Broccoli">
-                    <img src="images/Broccoli.png" alt="Broccoli">
-                </div>
-                <div class="food-button" data-food="Carrot">
-                    <img src="images/carrot.png" alt="Carrot">
-                </div>
-                <div class="food-button" data-food="Tomato">
-                    <img src="images/tomato.png" alt="Tomato">
-                </div>
-            </div>
-        </div>
-
-        <!-- Carb Section -->
-        <div class="category-container">
-            <h2>What comes with it?</h2>
-            <div class="button-container">
-                <div class="food-button" data-food="Rice">
-                    <img src="images/Rice.png" alt="Rice">
-                </div>
-                <div class="food-button" data-food="Pasta">
-                    <img src="images/Pasta.png" alt="Pasta">
-                </div>
-                <div class="food-button" data-food="Potato">
-                    <img src="images/Potato.png" alt="Potato">
-                </div>
-            </div>
-        </div>
-
-        <!-- Meat/Fish Section -->
-        <div class="category-container">
-            <div class="button-container">
-                <div class="food-button" data-food="Chicken">
-                    <img src="images/Chicken.png" alt="Chicken">
-                </div>
-                <div class="food-button" data-food="Salmon">
-                    <img src="images/salmon.png" alt="Salmon">
-                </div>
-                <div class="food-button" data-food="Beef">
-                    <img src="images/beef.png" alt="Beef">
-                </div>
-            </div>
-        </div>
-
-        <!-- Input Container -->
-        <div class="input-container">
-            <textarea class="typing-box" id="typingBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
-            <button class="submit-button" onclick="generatePrompt()">Show me GO!</button>
-        </div>
-
-        <!-- Response Box -->
-        <div id="response" class="response-box">Your recipes will appear here...</div>
+    <div class="video-container">
+        <video width="300" controls>
+            <source src="images1/show_my_recipes.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
+
+    <div class="text-container">
+        <p>Choose the ingredients below to get recipe suggestions your kid will love! Simply click the buttons for veggies, sides, and proteins, and hit "Show me GO!" to get your customized recipes!</p>
+    </div>
+
+    <!-- Ingredients Section -->
+    <div class="category-container">
+        <div class="button-container">
+            <!-- Veggies -->
+            <div class="food-button" data-food="Asparagus">
+                <img src="images1/Asparagus.png" alt="Asparagus">
+            </div>
+            <div class="food-button" data-food="Green beans">
+                <img src="images1/Green_beans.png" alt="Green beans">
+            </div>
+            <div class="food-button" data-food="Broccoli">
+                <img src="images1/Broccoli.png" alt="Broccoli">
+            </div>
+            <div class="food-button" data-food="Tomatoes">
+                <img src="images1/Tomatoes.png" alt="Tomatoes">
+            </div>
+            <div class="food-button" data-food="Bell Peppers">
+                <img src="images1/Bell_Peppers.png" alt="Bell Peppers">
+            </div>
+            <div class="food-button" data-food="Carrots">
+                <img src="images1/Carrots.png" alt="Carrots">
+            </div>
+            <div class="food-button" data-food="Cauliflower">
+                <img src="images1/Cauliflower.png" alt="Cauliflower">
+            </div>
+            <div class="food-button" data-food="Celery">
+                <img src="images1/Celery.png" alt="Celery">
+            </div>
+            <!-- (Add all the other veggies, sides, and proteins similarly) -->
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <textarea class="typing-box" id="typingBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
+        <button class="submit-button" onclick="generatePrompt()">
+            <span>Show my</span>
+            <span>recipes</span>
+        </button>
+    </div>
+
+    <div id="response" class="response-box">Your recipes will appear here...</div>
 
     <script>
         const selectedFoods = [];
@@ -210,7 +197,7 @@
                     const data = await response.json();
                     const aiResponse = data.choices[0]?.message?.content.trim();
 
-                    responseDiv.innerHTML = formatResponse(aiResponse);
+                    responseDiv.innerHTML = `<strong>Recipe Suggestions:</strong><br>${aiResponse}`;
                 } else {
                     throw new Error(`Server Error: ${response.status}`);
                 }
@@ -218,11 +205,6 @@
                 responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
             }
         }
-
-        function formatResponse(text) {
-            return text.split('\n').map(line => `<p>${line}</p>`).join('');
-        }
     </script>
 </body>
-
 </html>
