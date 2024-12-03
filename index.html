@@ -32,11 +32,6 @@
             margin: 0 auto;
             max-width: 90%;
         }
-        @media (max-width: 768px) {
-            .button-container {
-                grid-template-columns: repeat(4, 1fr); /* Change to 4 columns on mobile */
-            }
-        }
         .food-button {
             display: inline-block;
             width: 100%;
@@ -50,7 +45,7 @@
             object-fit: cover;
         }
         .typing-box {
-            width: calc(80% - 110px); /* Adjusted width to leave space for the button */
+            width: calc(80% - 120px); /* Adjusted width to leave space for the button */
             max-width: 600px;
             height: 80px;
             margin: 20px auto;
@@ -73,7 +68,6 @@
             color: #fff;
             border: 2px solid #000;
             border-radius: 5px;
-            margin-left: -4px;
             display: inline-block;
             vertical-align: top;
         }
@@ -98,12 +92,31 @@
             height: auto;
             border-radius: 50%;
         }
-        .header-image {
+        .header {
             width: 100%;
-            height: auto;
+            height: 150px;
+            background: linear-gradient(to bottom, #000000 70%, #ffe5b4 30%);
+            position: relative;
+        }
+        .header-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffc8f3;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .heart-icon {
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
         }
         .intro-text {
-            font-size: 16px;
+            font-size: 15px; /* Adjusted font size */
             font-weight: bold;
             text-align: left;
             margin-left: 20%; /* 20% margin from the left */
@@ -112,11 +125,14 @@
     </style>
 </head>
 <body>
-    <img src="images1/header.png" alt="Header Image" class="header-image"> <!-- Added header image -->
-    <h1>Mealify AI</h1>
+    <div class="header">
+        <span class="header-text">Mealify</span>
+        <img src="images1/heart.png" alt="Heart Icon" class="heart-icon"> <!-- Added heart icon -->
+    </div>
+
     <p class="intro-text">Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love.</p>
 
-    <video class="avatar-video" autoplay muted loop>
+    <video class="avatar-video" autoplay loop>
         <source src="images1/show my recipes.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
