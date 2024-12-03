@@ -8,7 +8,7 @@
         body {
             font-family: 'Karla', sans-serif;
             text-align: center;
-            background-color: #ffffff;
+            background-color: #ffffff; /* Updated color */
             color: #333;
         }
         h1 {
@@ -16,23 +16,26 @@
             font-size: 24px;
             color: #ffffff;
         }
-        p {
-            font-size: 16px;
-            font-weight: bold;
-            margin-left: 20%;
-            margin-right: 20%;
-            text-align: left;
+        h2 {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4a148c;
         }
         .category-container {
             margin: 20px 0;
         }
         .button-container {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(6, 1fr); /* Changed to 6 columns */
             gap: 15px;
             justify-items: center;
             margin: 0 auto;
-            max-width: 60%;
+            max-width: 90%;
+        }
+        @media (max-width: 768px) {
+            .button-container {
+                grid-template-columns: repeat(4, 1fr); /* Change to 4 columns on mobile */
+            }
         }
         .food-button {
             display: inline-block;
@@ -47,7 +50,8 @@
             object-fit: cover;
         }
         .typing-box {
-            width: 60%;
+            width: calc(80% - 110px); /* Adjusted width to leave space for the button */
+            max-width: 600px;
             height: 80px;
             margin: 20px auto;
             padding: 10px;
@@ -74,7 +78,8 @@
             vertical-align: top;
         }
         .response-box {
-            width: 60%;
+            width: 80%;
+            max-width: 600px;
             height: 150px;
             margin: 20px auto;
             padding: 10px;
@@ -88,20 +93,31 @@
         .avatar-video {
             position: absolute;
             top: 20px;
-            right: 20%;
+            right: 20%; /* Adjusted to have a 20% margin from the right */
             width: 150px;
             height: auto;
             border-radius: 50%;
-            autoplay: true;
+        }
+        .header-image {
+            width: 100%;
+            height: auto;
+        }
+        .intro-text {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+            margin-left: 20%; /* 20% margin from the left */
+            margin-right: 20%;
         }
     </style>
 </head>
 <body>
+    <img src="images1/header.png" alt="Header Image" class="header-image"> <!-- Added header image -->
     <h1>Mealify AI</h1>
-    <p>Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love.</p>
+    <p class="intro-text">Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love.</p>
 
-    <video class="avatar-video" controls autoplay>
-        <source src="images1/avatar-intro.mp4" type="video/mp4">
+    <video class="avatar-video" autoplay muted loop>
+        <source src="images1/show my recipes.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -121,8 +137,8 @@
             <div class="food-button" data-food="Tomatoes">
                 <img src="images1/Tomatoes.png" alt="Tomatoes">
             </div>
-            <div class="food-button" data-food="Bell Peppers">
-                <img src="images1/Bell Peppers.png" alt="Bell Peppers">
+            <div class="food-button" data-food="Bell peppers">
+                <img src="images1/Bell peppers.png" alt="Bell Peppers">
             </div>
             <div class="food-button" data-food="Carrots">
                 <img src="images1/Carrots.png" alt="Carrots">
@@ -169,14 +185,14 @@
             <div class="food-button" data-food="Corn">
                 <img src="images1/Corn.png" alt="Corn">
             </div>
-            <div class="food-button" data-food="Brussel sprouts">
-                <img src="images1/Brussel sprouts.png" alt="Brussel Sprouts">
+            <div class="food-button" data-food="Brussels sprouts">
+                <img src="images1/Brussels sprouts.png" alt="Brussels Sprouts">
             </div>
             <div class="food-button" data-food="Endives">
                 <img src="images1/Endives.png" alt="Endives">
             </div>
-            <div class="food-button" data-food="Red or brown beans">
-                <img src="images1/Red or brown beans.png" alt="Red or Brown Beans">
+            <div class="food-button" data-food="Red, brown or black beans">
+                <img src="images1/Red, brown or black beans.png" alt="Red, Brown or Black Beans">
             </div>
             <div class="food-button" data-food="Chickpeas">
                 <img src="images1/Chickpeas.png" alt="Chickpeas">
@@ -197,8 +213,8 @@
             <div class="food-button" data-food="Pasta">
                 <img src="images1/Pasta.png" alt="Pasta">
             </div>
-            <div class="food-button" data-food="Sweet potatoes">
-                <img src="images1/Sweet potatoes.png" alt="Sweet Potatoes">
+            <div class="food-button" data-food="Sweet Potatoes">
+                <img src="images1/Sweet Potatoes.png" alt="Sweet Potatoes">
             </div>
             <div class="food-button" data-food="Noodles">
                 <img src="images1/Noodles.png" alt="Noodles">
@@ -240,8 +256,8 @@
             <div class="food-button" data-food="Salmon">
                 <img src="images1/Salmon.png" alt="Salmon">
             </div>
-            <div class="food-button" data-food="Cod">
-                <img src="images1/Cod.png" alt="Cod">
+            <div class="food-button" data-food="Cod filet">
+                <img src="images1/Cod filet.png" alt="Cod Filet">
             </div>
             <div class="food-button" data-food="Fish fingers">
                 <img src="images1/Fish fingers.png" alt="Fish Fingers">
@@ -252,8 +268,8 @@
             <div class="food-button" data-food="Tuna">
                 <img src="images1/Tuna.png" alt="Tuna">
             </div>
-            <div class="food-button" data-food="Lamb chops">
-                <img src="images1/Lamb chops.png" alt="Lamb Chops">
+            <div class="food-button" data-food="Lamb chops or lambs rib">
+                <img src="images1/Lamb chops or lambs rib.png" alt="Lamb Chops or Lambs Rib">
             </div>
             <div class="food-button" data-food="Porc loin">
                 <img src="images1/Porc loin.png" alt="Porc Loin">
