@@ -1,200 +1,359 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mealify</title>
+    <title>Mealify AI</title>
     <style>
         body {
             font-family: 'Karla', sans-serif;
-            margin: 0;
-            padding: 0;
             text-align: center;
-            background-color: #ffffff;
+            background-color: #ffffff; /* Updated color */
             color: #333;
         }
-
-        .header {
-            position: relative;
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(to bottom, #000000, #fdeacb);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        .header h1 {
-            margin: 0;
+        h1 {
+            margin: 20px 0;
             font-size: 24px;
-            color: #ffc0cb;
-            position: absolute;
-            top: 20px;
-            left: 20px;
+            color: #ffffff;
         }
-
-        .header img {
-            width: 40px;
-            height: auto;
-            position: absolute;
-            top: 50px;
-            left: 20px;
+        h2 {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4a148c;
         }
-
-        .video-container {
-            position: absolute;
-            top: 50px;
-            right: 20px;
-            width: 150px;
-            height: 100px;
-            overflow: hidden;
+        .category-container {
+            margin: 20px 0;
         }
-
-        .video-container video {
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* Changed to 6 columns */
+            gap: 15px;
+            justify-items: center;
+            margin: 0 auto;
+            max-width: 90%;
+        }
+        .food-button {
+            display: inline-block;
             width: 100%;
-            height: 100%;
+            height: auto;
+            cursor: pointer;
+            text-align: center;
+        }
+        .food-button img {
+            width: 100%;
+            height: auto;
             object-fit: cover;
         }
-
-        .intro-text {
-            font-size: 15px;
+        .typing-box {
+            width: calc(80% - 120px); /* Adjusted width to leave space for the button */
+            max-width: 600px;
+            height: 80px;
             margin: 20px auto;
-            width: 60%;
-            text-align: left;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
-            margin: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .input-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .input-container input {
-            height: 40px;
-            width: calc(100% - 150px);
-            max-width: 300px;
-            border: 1px solid #333;
+            padding: 10px;
+            border: 2px solid #000;
+            border-radius: 5px;
             font-size: 16px;
-            padding: 0 10px;
-            box-sizing: border-box;
-            font-family: 'Karla', sans-serif;
+            resize: none;
+            display: inline-block;
+            vertical-align: top;
+            background: rgba(255, 255, 255, 0.8);
         }
-
-        .input-container button {
-            height: 40px;
+        .submit-button {
+            width: 100px;
+            height: 80px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
             background-color: #333;
             color: #fff;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            padding: 0 20px;
-            font-family: 'Karla', sans-serif;
+            border: 2px solid #000;
+            border-radius: 5px;
+            display: inline-block;
+            vertical-align: top;
         }
-
-        .output-container {
+        .response-box {
+            width: 80%;
+            max-width: 600px;
+            height: 150px;
             margin: 20px auto;
-            width: 60%;
-            text-align: left;
-            border: 1px solid #333;
             padding: 10px;
-            box-sizing: border-box;
-            font-family: 'Karla', sans-serif;
+            border: 2px solid #000;
+            border-radius: 5px;
+            font-size: 16px;
+            overflow: auto;
+            word-wrap: break-word;
+            background: rgba(255, 255, 255, 0.8);
         }
-
-        .output-container p {
-            margin: 0;
+        .avatar-video {
+            position: absolute;
+            top: 20px;
+            right: 20%; /* Adjusted to have a 20% margin from the right */
+            width: 150px;
+            height: auto;
+            border-radius: 50%;
+        }
+        .header {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, #000000 70%, #ffe5b4 30%);
+            position: relative;
+        }
+        .header-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffc8f3;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .heart-icon {
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+        }
+        .intro-text {
+            font-size: 15px; /* Adjusted font size */
+            font-weight: bold;
+            text-align: left;
+            margin-left: 20%; /* 20% margin from the left */
+            margin-right: 20%;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Mealify</h1>
-        <img src="heart.png" alt="Heart">
-        <div class="video-container">
-            <video autoplay loop>
-                <source src="show-my-recipes.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+        <span class="header-text">Mealify</span>
+        <img src="images1/heart.png" alt="Heart Icon" class="heart-icon"> <!-- Added heart icon -->
+    </div>
+
+    <p class="intro-text">Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love.</p>
+
+    <video class="avatar-video" autoplay loop>
+        <source src="images1/show my recipes.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Veggie Section -->
+    <div class="category-container">
+        <h2>Veggies</h2>
+        <div class="button-container">
+            <div class="food-button" data-food="Asparagus">
+                <img src="images1/Asparagus.png" alt="Asparagus">
+            </div>
+            <div class="food-button" data-food="Green beans">
+                <img src="images1/Green beans.png" alt="Green Beans">
+            </div>
+            <div class="food-button" data-food="Broccoli">
+                <img src="images1/Broccoli.png" alt="Broccoli">
+            </div>
+            <div class="food-button" data-food="Tomatoes">
+                <img src="images1/Tomatoes.png" alt="Tomatoes">
+            </div>
+            <div class="food-button" data-food="Bell peppers">
+                <img src="images1/Bell peppers.png" alt="Bell Peppers">
+            </div>
+            <div class="food-button" data-food="Carrots">
+                <img src="images1/Carrots.png" alt="Carrots">
+            </div>
+            <div class="food-button" data-food="Cauliflower">
+                <img src="images1/Cauliflower.png" alt="Cauliflower">
+            </div>
+            <div class="food-button" data-food="Celery">
+                <img src="images1/Celery.png" alt="Celery">
+            </div>
+            <div class="food-button" data-food="Courgette">
+                <img src="images1/Courgette.png" alt="Courgette">
+            </div>
+            <div class="food-button" data-food="Cucumber">
+                <img src="images1/Cucumber.png" alt="Cucumber">
+            </div>
+            <div class="food-button" data-food="Eggplant">
+                <img src="images1/Eggplant.png" alt="Eggplant">
+            </div>
+            <div class="food-button" data-food="Fennel">
+                <img src="images1/Fennel.png" alt="Fennel">
+            </div>
+            <div class="food-button" data-food="Kale">
+                <img src="images1/Kale.png" alt="Kale">
+            </div>
+            <div class="food-button" data-food="Lentils">
+                <img src="images1/Lentils.png" alt="Lentils">
+            </div>
+            <div class="food-button" data-food="Lettuce">
+                <img src="images1/Lettuce.png" alt="Lettuce">
+            </div>
+            <div class="food-button" data-food="Mushrooms">
+                <img src="images1/Mushrooms.png" alt="Mushrooms">
+            </div>
+            <div class="food-button" data-food="Peas">
+                <img src="images1/Peas.png" alt="Peas">
+            </div>
+            <div class="food-button" data-food="Pumpkin">
+                <img src="images1/Pumpkin.png" alt="Pumpkin">
+            </div>
+            <div class="food-button" data-food="Spinach">
+                <img src="images1/Spinach.png" alt="Spinach">
+            </div>
+            <div class="food-button" data-food="Corn">
+                <img src="images1/Corn.png" alt="Corn">
+            </div>
+            <div class="food-button" data-food="Brussels sprouts">
+                <img src="images1/Brussels sprouts.png" alt="Brussels Sprouts">
+            </div>
+            <div class="food-button" data-food="Endives">
+                <img src="images1/Endives.png" alt="Endives">
+            </div>
+            <div class="food-button" data-food="Red, brown or black beans">
+                <img src="images1/Red, brown or black beans.png" alt="Red, Brown or Black Beans">
+            </div>
+            <div class="food-button" data-food="Chickpeas">
+                <img src="images1/Chickpeas.png" alt="Chickpeas">
+            </div>
         </div>
     </div>
 
-    <div class="intro-text">
-        <p>Hey you! Click on your kid's favorites and I will show you 3 recipes your kiddo will love.</p>
+    <!-- Sides Section -->
+    <div class="category-container">
+        <h2>Sides</h2>
+        <div class="button-container">
+            <div class="food-button" data-food="Potatoes">
+                <img src="images1/Potatoes.png" alt="Potatoes">
+            </div>
+            <div class="food-button" data-food="Rice">
+                <img src="images1/Rice.png" alt="Rice">
+            </div>
+            <div class="food-button" data-food="Pasta">
+                <img src="images1/Pasta.png" alt="Pasta">
+            </div>
+            <div class="food-button" data-food="Sweet Potatoes">
+                <img src="images1/Sweet Potatoes.png" alt="Sweet Potatoes">
+            </div>
+            <div class="food-button" data-food="Noodles">
+                <img src="images1/Noodles.png" alt="Noodles">
+            </div>
+            <div class="food-button" data-food="Couscous">
+                <img src="images1/Couscous.png" alt="Couscous">
+            </div>
+            <div class="food-button" data-food="Pita or flat breads">
+                <img src="images1/Pita or flat breads.png" alt="Pita or Flat Breads">
+            </div>
+            <div class="food-button" data-food="Gnocchi">
+                <img src="images1/Gnocchi.png" alt="Gnocchi">
+            </div>
+            <div class="food-button" data-food="Quinoa">
+                <img src="images1/Quinoa.png" alt="Quinoa">
+            </div>
+            <div class="food-button" data-food="Savory pastry">
+                <img src="images1/Savory pastry.png" alt="Savory Pastry">
+            </div>
+            <div class="food-button" data-food="Eggs">
+                <img src="images1/Eggs.png" alt="Eggs">
+            </div>
+            <div class="food-button" data-food="Tortilla wraps">
+                <img src="images1/Tortilla wraps.png" alt="Tortilla Wraps">
+            </div>
+        </div>
     </div>
 
-    <div class="grid">
-        <img src="Asparagus.png" alt="Asparagus">
-        <img src="Bacon.png" alt="Bacon">
-        <img src="Bell peppers.png" alt="Bell peppers">
-        <img src="Broccoli.png" alt="Broccoli">
-        <img src="Brussels sprouts.png" alt="Brussels sprouts">
-        <img src="Carrots.png" alt="Carrots">
-        <img src="Cauliflower.png" alt="Cauliflower">
-        <img src="Celery.png" alt="Celery">
-        <img src="Chicken filet.png" alt="Chicken filet">
-        <img src="Chickpeas.png" alt="Chickpeas">
-        <img src="Cod filet.png" alt="Cod filet">
-        <img src="Corn.png" alt="Corn">
-        <img src="Courgette.png" alt="Courgette">
-        <img src="Couscous.png" alt="Couscous">
-        <img src="Cucumber.png" alt="Cucumber">
-        <img src="Eggplant.png" alt="Eggplant">
-        <img src="Eggs.png" alt="Eggs">
-        <img src="Endives.png" alt="Endives">
-        <img src="Fennel.png" alt="Fennel">
-        <img src="Fish fingers.png" alt="Fish fingers">
-        <img src="Gnocchi.png" alt="Gnocchi">
-        <img src="Green beans.png" alt="Green beans">
-        <img src="Kale.png" alt="Kale">
-        <img src="Lamb chops or lambs rib.png" alt="Lamb chops">
-        <img src="Lentils.png" alt="Lentils">
-        <img src="Lettuce.png" alt="Lettuce">
-        <img src="Meatballs.png" alt="Meatballs">
-        <img src="Minced beef.png" alt="Minced beef">
-        <img src="Mushrooms.png" alt="Mushrooms">
-        <img src="Noodles.png" alt="Noodles">
-        <img src="Pasta.png" alt="Pasta">
-        <img src="Peas.png" alt="Peas">
-        <img src="Pita or flat breads.png" alt="Pita or flat breads">
-        <img src="Porc loin.png" alt="Porc loin">
-        <img src="Potatoes.png" alt="Potatoes">
-        <img src="Pumkin.png" alt="Pumpkin">
-        <img src="Quinoa.png" alt="Quinoa">
-        <img src="Red, brown or black beans.png" alt="Red, brown or black beans">
-        <img src="Rice.png" alt="Rice">
-        <img src="Salmon.png" alt="Salmon">
-        <img src="Savory pastry.png" alt="Savory pastry">
-        <img src="Spinach.png" alt="Spinach">
-        <img src="Steak.png" alt="Steak">
-        <img src="Sweet Potatoes.png" alt="Sweet Potatoes">
-        <img src="Tofu.png" alt="Tofu">
-        <img src="Tomatoes.png" alt="Tomatoes">
-        <img src="Tortilla wraps.png" alt="Tortilla wraps">
-        <img src="Tuna.png" alt="Tuna">
+    <!-- Proteins Section -->
+    <div class="category-container">
+        <h2>Proteins</h2>
+        <div class="button-container">
+            <div class="food-button" data-food="Chicken filet">
+                <img src="images1/Chicken filet.png" alt="Chicken Filet">
+            </div>
+            <div class="food-button" data-food="Meatballs">
+                <img src="images1/Meatballs.png" alt="Meatballs">
+            </div>
+            <div class="food-button" data-food="Salmon">
+                <img src="images1/Salmon.png" alt="Salmon">
+            </div>
+            <div class="food-button" data-food="Cod filet">
+                <img src="images1/Cod filet.png" alt="Cod Filet">
+            </div>
+            <div class="food-button" data-food="Fish fingers">
+                <img src="images1/Fish fingers.png" alt="Fish Fingers">
+            </div>
+            <div class="food-button" data-food="Tofu">
+                <img src="images1/Tofu.png" alt="Tofu">
+            </div>
+            <div class="food-button" data-food="Tuna">
+                <img src="images1/Tuna.png" alt="Tuna">
+            </div>
+            <div class="food-button" data-food="Lamb chops or lambs rib">
+                <img src="images1/Lamb chops or lambs rib.png" alt="Lamb Chops or Lambs Rib">
+            </div>
+            <div class="food-button" data-food="Porc loin">
+                <img src="images1/Porc loin.png" alt="Porc Loin">
+            </div>
+            <div class="food-button" data-food="Minced beef">
+                <img src="images1/Minced beef.png" alt="Minced Beef">
+            </div>
+            <div class="food-button" data-food="Steak">
+                <img src="images1/Steak.png" alt="Steak">
+            </div>
+            <div class="food-button" data-food="Bacon">
+                <img src="images1/Bacon.png" alt="Bacon">
+            </div>
+        </div>
     </div>
 
-    <div class="input-container">
-        <input type="text" placeholder="Enter your ingredients...">
-        <button>Show My Recipes</button>
+    <div style="display: flex; justify-content: center;">
+        <textarea class="typing-box" id="typingBox" readonly>Tonight's inspiration with 3 kids proof recipes based on:</textarea>
+        <button class="submit-button" onclick="generatePrompt()">show my<br>recipes</button>
     </div>
 
-    <div class="output-container">
-        <p>Your recipes will appear here...</p>
-    </div>
+    <div id="response" class="response-box">Your recipes will appear here...</div>
+
+    <script>
+        const selectedFoods = [];
+
+        document.querySelectorAll('.food-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const foodItem = button.getAttribute('data-food');
+
+                if (!selectedFoods.includes(foodItem)) {
+                    selectedFoods.push(foodItem);
+
+                    const typingBox = document.getElementById('typingBox');
+                    typingBox.value = `Tonight's inspiration with 3 kids proof recipes based on: ${selectedFoods.join(', ')}`;
+                }
+            });
+        });
+
+        async function generatePrompt() {
+            const prompt = document.getElementById('typingBox').value.trim() +
+                " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside.";
+
+            const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
+            const responseDiv = document.getElementById('response');
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const aiResponse = data.choices[0]?.message?.content.trim();
+
+                    responseDiv.innerHTML = `<strong>Recipe Suggestions:</strong><br>${aiResponse.replace(/\n/g, '<br>')}`;
+                } else {
+                    throw new Error(`Server Error: ${response.status}`);
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+            }
+        }
+    </script>
 </body>
 </html>
