@@ -38,13 +38,38 @@
             text-align: left;
             margin: 20px 20%;
         }
+        .video-container {
+            position: relative;
+            margin: 20px auto;
+            width: 300px;
+            height: 300px;
+        }
         .avatar-video {
-            position: absolute;
-            top: 20px;
-            right: 20%;
-            width: 150px;
-            height: auto;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            visibility: hidden;
+        }
+        .play-button img {
+            width: 30px;
+            height: 30px;
+        }
+        .video-container:hover .play-button {
+            visibility: visible;
         }
         .category-container {
             margin: 20px 0;
@@ -125,7 +150,7 @@
     <p class="intro-text">Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love.</p>
 
     <video class="avatar-video" autoplay loop>
-        <source src="images1/show my recipes.mp4" type="video/mp4">
+        <source src="images1/show_my_recipes.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -134,15 +159,15 @@
         <div class="button-container">
             <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt="Asparagus"></div>
             <div class="food-button" data-food="Bacon"><img src="images1/Bacon.png" alt="Bacon"></div>
-            <div class="food-button" data-food="Bell peppers"><img src="images1/Bell peppers.png" alt="Bell Peppers"></div>
+            <div class="food-button" data-food="Bell peppers"><img src="images1/Bell_peppers.png" alt="Bell Peppers"></div>
             <div class="food-button" data-food="Broccoli"><img src="images1/Broccoli.png" alt="Broccoli"></div>
-            <div class="food-button" data-food="Brussels sprouts"><img src="images1/Brussels sprouts.png" alt="Brussels Sprouts"></div>
+            <div class="food-button" data-food="Brussels sprouts"><img src="images1/Brussels_sprouts.png" alt="Brussels Sprouts"></div>
             <div class="food-button" data-food="Carrots"><img src="images1/Carrots.png" alt="Carrots"></div>
             <div class="food-button" data-food="Cauliflower"><img src="images1/Cauliflower.png" alt="Cauliflower"></div>
             <div class="food-button" data-food="Celery"><img src="images1/Celery.png" alt="Celery"></div>
-            <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt="Chicken Filet"></div>
+            <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken_filet.png" alt="Chicken Filet"></div>
             <div class="food-button" data-food="Chickpeas"><img src="images1/Chickpeas.png" alt="Chickpeas"></div>
-            <div class="food-button" data-food="Cod filet"><img src="images1/Cod filet.png" alt="Cod Filet"></div>
+            <div class="food-button" data-food="Cod filet"><img src="images1/Cod_filet.png" alt="Cod Filet"></div>
             <div class="food-button" data-food="Corn"><img src="images1/Corn.png" alt="Corn"></div>
             <div class="food-button" data-food="Courgette"><img src="images1/Courgette.png" alt="Courgette"></div>
             <div class="food-button" data-food="Couscous"><img src="images1/Couscous.png" alt="Couscous"></div>
@@ -151,34 +176,34 @@
             <div class="food-button" data-food="Eggs"><img src="images1/Eggs.png" alt="Eggs"></div>
             <div class="food-button" data-food="Endives"><img src="images1/Endives.png" alt="Endives"></div>
             <div class="food-button" data-food="Fennel"><img src="images1/Fennel.png" alt="Fennel"></div>
-            <div class="food-button" data-food="Fish fingers"><img src="images1/Fish fingers.png" alt="Fish Fingers"></div>
+            <div class="food-button" data-food="Fish fingers"><img src="images1/Fish_fingers.png" alt="Fish Fingers"></div>
             <div class="food-button" data-food="Gnocchi"><img src="images1/Gnocchi.png" alt="Gnocchi"></div>
-            <div class="food-button" data-food="Green beans"><img src="images1/Green beans.png" alt="Green Beans"></div>
+            <div class="food-button" data-food="Green beans"><img src="images1/Green_beans.png" alt="Green Beans"></div>
             <div class="food-button" data-food="Kale"><img src="images1/Kale.png" alt="Kale"></div>
-            <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lambs rib.png" alt="Lamb Chops"></div>
+            <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb_chops_or_lambs_rib.png" alt="Lamb Chops"></div>
             <div class="food-button" data-food="Lentils"><img src="images1/Lentils.png" alt="Lentils"></div>
             <div class="food-button" data-food="Lettuce"><img src="images1/Lettuce.png" alt="Lettuce"></div>
             <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt="Meatballs"></div>
-            <div class="food-button" data-food="Minced beef"><img src="images1/Minced beef.png" alt="Minced Beef"></div>
+            <div class="food-button" data-food="Minced beef"><img src="images1/Minced_beef.png" alt="Minced Beef"></div>
             <div class="food-button" data-food="Mushrooms"><img src="images1/Mushrooms.png" alt="Mushrooms"></div>
             <div class="food-button" data-food="Noodles"><img src="images1/Noodles.png" alt="Noodles"></div>
             <div class="food-button" data-food="Pasta"><img src="images1/Pasta.png" alt="Pasta"></div>
             <div class="food-button" data-food="Peas"><img src="images1/Peas.png" alt="Peas"></div>
-            <div class="food-button" data-food="Pita or flat breads"><img src="images1/Pita or flat breads.png" alt="Pita or Flat Breads"></div>
-            <div class="food-button" data-food="Porc loin"><img src="images1/Porc loin.png" alt="Porc Loin"></div>
+            <div class="food-button" data-food="Pita or flat breads"><img src="images1/Pita_or_flat_breads.png" alt="Pita or Flat Breads"></div>
+            <div class="food-button" data-food="Porc loin"><img src="images1/Porc_loin.png" alt="Porc Loin"></div>
             <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt="Potatoes"></div>
-            <div class="food-button" data-food="Pumkin"><img src="images1/Pumkin.png" alt="Pumpkin"></div>
+            <div class="food-button" data-food="Pumkin"><img src="images1/Pumpkin.png" alt="Pumpkin"></div>
             <div class="food-button" data-food="Quinoa"><img src="images1/Quinoa.png" alt="Quinoa"></div>
-            <div class="food-button" data-food="Red, brown or black beans"><img src="images1/Red, brown or black beans.png" alt="Beans"></div>
+            <div class="food-button" data-food="Red, brown or black beans"><img src="images1/Red_brown_or_black_beans.png" alt="Beans"></div>
             <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt="Rice"></div>
             <div class="food-button" data-food="Salmon"><img src="images1/Salmon.png" alt="Salmon"></div>
-            <div class="food-button" data-food="Savory pastry"><img src="images1/Savory pastry.png" alt="Savory Pastry"></div>
+            <div class="food-button" data-food="Savory pastry"><img src="images1/Savory_pastry.png" alt="Savory Pastry"></div>
             <div class="food-button" data-food="Spinach"><img src="images1/Spinach.png" alt="Spinach"></div>
             <div class="food-button" data-food="Steak"><img src="images1/Steak.png" alt="Steak"></div>
-            <div class="food-button" data-food="Sweet Potatoes"><img src="images1/Sweet Potatoes.png" alt="Sweet Potatoes"></div>
+            <div class="food-button" data-food="Sweet Potatoes"><img src="images1/Sweet_Potatoes.png" alt="Sweet Potatoes"></div>
             <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt="Tofu"></div>
             <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt="Tomatoes"></div>
-            <div class="food-button" data-food="Tortilla wraps"><img src="images1/Tortilla wraps.png" alt="Tortilla Wraps"></div>
+            <div class="food-button" data-food="Tortilla wraps"><img src="images1/Tortilla_wraps.png" alt="Tortilla Wraps"></div>
             <div class="food-button" data-food="Tuna"><img src="images1/Tuna.png" alt="Tuna"></div>
         </div>
     </div>
