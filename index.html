@@ -39,10 +39,11 @@
             margin: 20px 20%;
         }
         .video-container {
-            position: relative;
-            margin: 20px auto;
-            width: 300px;
-            height: 300px;
+            position: absolute;
+            top: -100px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
         }
         .avatar-video {
             width: 100%;
@@ -77,10 +78,10 @@
         .button-container {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 15px;
+            gap: 2px;
             justify-items: center;
             margin: 0 auto;
-            max-width: 90%;
+            width: 60%;
         }
         @media (max-width: 768px) {
             .button-container {
@@ -145,19 +146,15 @@
     <div class="header">
         <span class="header-text">Mealify</span>
         <img src="images1/heart-icon.png" alt="Heart Icon" class="heart-icon">
+        <div class="video-container">
+            <video class="avatar-video" autoplay playsinline id="videoPlayer">
+                <source src="images1/show my recipes.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     </div>
 
     <p class="intro-text">Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love.</p>
-
-    <div class="video-container">
-        <video class="avatar-video" autoplay muted playsinline id="videoPlayer">
-            <source src="images1/show my recipes.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="play-button" id="playButton">
-            <img src="images1/play-icon.png" alt="Play Icon">
-        </div>
-    </div>
 
     <div class="category-container">
         <h2>Veggies</h2>
