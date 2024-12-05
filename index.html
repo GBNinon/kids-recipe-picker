@@ -42,7 +42,6 @@
             border-radius: 50%;
             object-fit: cover;
             autoplay: true;
-            muted: false;
             playsinline: true;
         }
         .intro-text {
@@ -167,7 +166,7 @@
         <span class="header-text">Mealify</span>
         <img src="images1/heart-icon.png" alt="Heart Icon" class="heart-icon">
         <div class="video-container">
-            <video class="avatar-video" autoplay muted playsinline id="videoPlayer">
+            <video class="avatar-video" autoplay playsinline id="videoPlayer">
                 <source src="images1/show my recipes.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -286,6 +285,34 @@
                 responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoPlayer = document.getElementById('videoPlayer');
+
+            // Check if autoplay with sound is blocked
+            videoPlayer.play().catch(() => {
+                // If it gets blocked, we show a play button
+                const playButton = document.createElement('button');
+                playButton.innerText = "Unmute Video";
+                playButton.style.position = "fixed";
+                playButton.style.bottom = "20px";
+                playButton.style.right = "20px";
+                playButton.style.zIndex = "1000";
+                playButton.style.padding = "10px";
+                playButton.style.backgroundColor = "#333";
+                playButton.style.color = "#fff";
+                playButton.style.border = "none";
+                playButton.style.borderRadius = "5px";
+                playButton.style.cursor = "pointer";
+                document.body.appendChild(playButton);
+
+                playButton.addEventListener('click', () => {
+                    videoPlayer.muted = false;
+                    videoPlayer.play();
+                    playButton.remove(); // Remove the button once video is unmuted
+                });
+            });
+        });
     </script>
 </body>
 </html>
