@@ -12,25 +12,29 @@
             color: #333;
         }
         
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            background-color: #273036;
+            padding: 20px 0;
+        }
         .header-text {
             font-size: 24px;
             font-weight: bold;
             color: #ffc8f3;
-            position: absolute;
-            top: 10px;
-            left: 20px;
+            margin-bottom: 10px;
         }
         .heart-icon {
-            position: absolute;
-            top: 50px;
-            left: 30px;
             width: 40px;
             height: 40px;
         }
         .video-container {
             position: absolute;
             top: 20px;
-            right: 20%; /* Adjusted from 25% to 20% */
+            right: 20%;
             width: 200px;
             height: 200px;
         }
@@ -39,9 +43,6 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            autoplay: true;
-            muted: false;
-            playsinline: true;
         }
         .intro-text {
             font-size: 15px;
@@ -51,19 +52,22 @@
         }
         @media (max-width: 768px) {
             .video-container {
-                position: static;
-                margin: 0 auto 10px auto;
-                width: 150px;
-                height: 150px;
+                width: 30%;
+                height: auto;
+                top: 0;
+                right: 5%;
+                margin: 10px 0;
             }
             .intro-text {
                 font-size: 14px;
-                font-weight: normal; /* Changed to not bold on mobile */
+                font-weight: normal;
                 text-align: center;
+                margin: 10px 5%;
             }
-            .header-text {
-                text-align: center;
-                width: 100%;
+            .header {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
             }
         }
         .category-container {
@@ -80,6 +84,7 @@
         @media (max-width: 768px) {
             .button-container {
                 grid-template-columns: repeat(4, 1fr);
+                width: 80%;
             }
         }
         .food-button {
@@ -100,17 +105,17 @@
             align-items: center;
             margin-top: 20px;
             gap: 20px;
+            width: 80%;
+            max-width: 600px;
         }
         .input-button-row {
             display: flex;
             align-items: center;
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
+            width: 100%;
         }
         .typing-box {
             flex: 1;
-            height: 50px;
+            height: 10vh;
             padding: 10px;
             border: 2px solid #000;
             border-radius: 5px;
@@ -120,8 +125,8 @@
         }
         .submit-button {
             flex: 0 0 auto;
-            width: 100px;
-            height: 50px;
+            width: 15%;
+            height: 10vh;
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
@@ -129,12 +134,11 @@
             color: #fff;
             border: 2px solid #000;
             border-radius: 5px;
-            margin-left: 10px;
+            margin-left: 2%;
         }
         .response-box {
-            width: 80%;
-            max-width: 600px;
-            height: 150px;
+            width: 100%;
+            height: 20vh;
             padding: 10px;
             border: 2px solid #000;
             border-radius: 5px;
@@ -145,17 +149,20 @@
         }
         @media (max-width: 768px) {
             .typing-box {
+                height: 15vh;
                 font-size: 14px;
-                height: 70px;
             }
             .submit-button {
+                width: 20%;
+                height: 15vh;
                 font-size: 14px;
-                width: 120px;
-                height: 70px;
             }
             .input-button-row {
                 flex-direction: column;
                 gap: 10px;
+            }
+            .response-box {
+                height: 25vh;
             }
         }
     </style>
@@ -165,7 +172,7 @@
         <span class="header-text">Mealify</span>
         <img src="images1/heart-icon.png" alt="Heart Icon" class="heart-icon">
         <div class="video-container">
-            <video class="avatar-video" autoplay muted playsinline id="videoPlayer" controls> <!-- Autoplay and muted attributes added for autoplay with sound off initially -->
+            <video class="avatar-video" autoplay muted playsinline id="videoPlayer">
                 <source src="images1/show my recipes.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -284,6 +291,20 @@
                 responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
             }
         }
+
+        // JavaScript to handle autoplay, hide controls, and replay when clicked
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.muted = false;
+            videoPlayer.setAttribute('autoplay', 'true');
+            videoPlayer.removeAttribute('controls');
+
+            videoPlayer.addEventListener('click', () => {
+                if (videoPlayer.paused) {
+                    videoPlayer.play();
+                }
+            });
+        });
     </script>
 </body>
 </html>
