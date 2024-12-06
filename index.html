@@ -13,35 +13,35 @@
             margin: 0;
             padding: 0;
         }
-        
+
+        /* HEADER */
         .header {
             position: relative;
             width: 100%;
-            overflow: hidden;
             background: #000;
-        }
-
-        .header-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffc8f3;
+            overflow: hidden;
         }
 
         .header-inner {
+            position: relative;
+            z-index: 2; /* Ensure content appears above waves */
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 10px;
-            position: relative;
         }
 
         .brand-container {
             display: flex;
             align-items: center;
             gap: 10px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+        }
+
+        .header-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffc8f3;
         }
 
         .heart-icon {
@@ -53,29 +53,33 @@
             position: absolute;
             top: 10px;
             right: 20px;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            z-index: 2;
         }
 
         .avatar-video {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
         }
 
+        /* WAVES */
         .wavy-header-container {
             position: relative;
             width: 100%;
             height: auto;
+            z-index: 1;
         }
-
         .wavy-header-container svg {
             display: block;
             width: 100%;
             height: auto;
         }
 
+        /* INTRO TEXT */
         .intro-text {
             font-size: 15px;
             font-weight: bold;
@@ -85,14 +89,11 @@
             line-height: 1.4;
         }
 
+        /* CATEGORY CONTAINERS */
         .category-container {
             margin: 20px auto;
-            max-width: 90%;
-        }
-
-        .category-container h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            max-width: 600px;
+            width: 90%;
         }
 
         .step-title {
@@ -113,7 +114,6 @@
             gap: 5px;
             justify-items: center;
             margin: 0 auto;
-            max-width: 600px;
         }
 
         @media (max-width: 768px) {
@@ -121,22 +121,7 @@
                 grid-template-columns: repeat(4, 1fr);
             }
 
-            .video-container {
-                position: static;
-                margin: 0 auto;
-                width: 80px;
-                height: 80px;
-            }
-
-            .intro-text {
-                font-size: 14px;
-                font-weight: normal;
-                text-align: center;
-            }
-
             .header-text {
-                text-align: center;
-                width: 100%;
                 font-size: 20px;
             }
         }
@@ -168,9 +153,9 @@
             border: 2px solid #FFC8F3;
         }
 
-        .category-done-btn, .option-btn {
+        .category-done-btn {
             display: inline-block;
-            margin: 10px auto;
+            margin: 10px auto 0 auto;
             background: #333;
             color: #fff;
             padding: 8px 15px;
@@ -181,18 +166,42 @@
             font-weight: bold;
         }
 
-        .category-done-btn:hover, .option-btn:hover {
+        .category-done-btn:hover {
             background: #555;
+        }
+
+        /* OPTIONS */
+        .option-section {
+            max-width: 600px;
+            width: 90%;
+            margin: 20px auto;
+            text-align: center;
         }
 
         .option-buttons {
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-bottom: 20px;
             flex-wrap: wrap;
+            margin-top: 10px;
         }
 
+        .option-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .option-btn:hover {
+            background: #555;
+        }
+
+        /* INPUT/OUTPUT */
         .input-output-container {
             display: flex;
             flex-direction: column;
@@ -201,6 +210,7 @@
             gap: 20px;
             max-width: 600px;
             margin: 20px auto;
+            width: 90%;
         }
 
         .input-button-row {
@@ -213,18 +223,20 @@
         @media (max-width: 768px) {
             .input-button-row {
                 flex-direction: column;
+                align-items: stretch;
             }
         }
 
         .typing-box {
             flex: 1;
-            min-height: 50px;
+            height: 50px;
             padding: 10px;
             border: 2px solid #000;
             border-radius: 5px;
             font-size: 16px;
-            resize: none;
             background: rgba(255, 255, 255, 0.8);
+            overflow: auto;
+            font-family: 'Karla', sans-serif;
         }
 
         .submit-button {
@@ -238,6 +250,9 @@
             border: 2px solid #000;
             border-radius: 5px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .submit-button:hover {
@@ -254,6 +269,7 @@
             overflow: auto;
             word-wrap: break-word;
             background: rgba(255, 255, 255, 0.8);
+            font-family: 'Karla', sans-serif;
         }
 
         footer {
@@ -266,7 +282,7 @@
     </style>
 </head>
 <body>
-    <div class="header">
+    <header class="header">
         <div class="header-inner">
             <div class="brand-container">
                 <span class="header-text">Mealify</span>
@@ -280,17 +296,22 @@
             </div>
         </div>
         <div class="wavy-header-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+            <!-- Orange Wave -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+            </svg>
+            <!-- Dark Wave -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+            </svg>
         </div>
-    </div>
+    </header>
 
     <p class="intro-text">Hey you! Click on your kid’s favorites and I will show you 3 recipes your kiddo will love. Or gamify your kid's meal, so they too will enjoy the food experience more. Go ahead!</p>
 
     <div class="category-container">
         <h2 class="step-title">1. Click on some veggies! <span class="sub-step">I recommend more than one!</span></h2>
-        <div class="button-container" id="veggies-container">
-            <!-- Veggies in given order -->
+        <div class="button-container">
             <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt=""></div>
             <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt=""></div>
             <div class="food-button" data-food="Green beans"><img src="images1/Green beans.png" alt=""></div>
@@ -321,7 +342,7 @@
 
     <div class="category-container">
         <h2 class="step-title">2. Click on one side dish!!</h2>
-        <div class="button-container" id="sides-container">
+        <div class="button-container">
             <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt=""></div>
             <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt=""></div>
             <div class="food-button" data-food="Sweet Potatoes"><img src="images1/Sweet Potatoes.png" alt=""></div>
@@ -340,7 +361,7 @@
 
     <div class="category-container">
         <h2 class="step-title">3. Keep clicking if you like to add meat or fish or will it be vegan today?</h2>
-        <div class="button-container" id="protein-container">
+        <div class="button-container">
             <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt=""></div>
             <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt=""></div>
             <div class="food-button" data-food="Salmon"><img src="images1/Salmon.png" alt=""></div>
@@ -356,7 +377,7 @@
         <button class="category-done-btn" data-category="protein">That's all for my protein</button>
     </div>
 
-    <div class="category-container">
+    <div class="option-section">
         <h2 class="step-title">Or choose a recipe type:</h2>
         <div class="option-buttons">
             <button class="option-btn" data-option="fast">FAST</button>
@@ -407,7 +428,7 @@
             categoryDoneButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
-                    // You can add logic if needed
+                    // Additional logic if needed
                 });
             });
 
