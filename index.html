@@ -7,14 +7,13 @@
     <style>
         body {
             font-family: 'Karla', sans-serif;
-            text-align: center;
             background-color: #ffffff;
             color: #333;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
-        /* HEADER */
         .header {
             position: relative;
             width: 100%;
@@ -22,64 +21,56 @@
             overflow: hidden;
         }
 
-        .header-inner {
-            position: relative;
-            z-index: 2; /* Ensure content appears above waves */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-        }
-
+        /* Positioning brand and heart icon as original code */
         .header-text {
             font-size: 24px;
             font-weight: bold;
             color: #ffc8f3;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
         }
 
         .heart-icon {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 40px;
             height: 40px;
+            z-index: 3;
         }
 
         .video-container {
             position: absolute;
-            top: 10px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 2;
+            top: 20px;
+            right: 20%;
+            width: 100px;
+            height: 100px;
+            z-index: 3;
         }
 
         .avatar-video {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
         }
 
-        /* WAVES */
         .wavy-header-container {
             position: relative;
             width: 100%;
             height: auto;
-            z-index: 1;
         }
+
         .wavy-header-container svg {
             display: block;
             width: 100%;
             height: auto;
         }
 
-        /* INTRO TEXT */
         .intro-text {
             font-size: 15px;
             font-weight: bold;
@@ -89,7 +80,6 @@
             line-height: 1.4;
         }
 
-        /* CATEGORY CONTAINERS */
         .category-container {
             margin: 20px auto;
             max-width: 600px;
@@ -124,11 +114,17 @@
             .header-text {
                 font-size: 20px;
             }
+
+            .video-container {
+                position: static;
+                margin: 0 auto 10px auto;
+                width: 80px;
+                height: 80px;
+            }
         }
 
         .food-button {
             cursor: pointer;
-            text-align: center;
             display: inline-block;
             width: 100%;
             height: auto;
@@ -170,7 +166,6 @@
             background: #555;
         }
 
-        /* OPTIONS */
         .option-section {
             max-width: 600px;
             width: 90%;
@@ -201,12 +196,10 @@
             background: #555;
         }
 
-        /* INPUT/OUTPUT */
         .input-output-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
             gap: 20px;
             max-width: 600px;
             margin: 20px auto;
@@ -282,30 +275,20 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <div class="brand-container">
-                <span class="header-text">Mealify</span>
-                <img src="images1/heart-icon.png" alt="" class="heart-icon">
-            </div>
-            <div class="video-container">
-                <video class="avatar-video" autoplay playsinline muted id="videoPlayer">
-                    <source src="images1/show my recipes.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+    <div class="header">
+        <span class="header-text">Mealify</span>
+        <img src="images1/heart-icon.png" alt="" class="heart-icon">
+        <div class="video-container">
+            <video class="avatar-video" autoplay playsinline muted id="videoPlayer">
+                <source src="images1/show my recipes.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
-        <div class="wavy-header-container">
-            <!-- Orange Wave -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
-            </svg>
-            <!-- Dark Wave -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
-            </svg>
+        <div class="wavy-header-container" style="position: relative; width: 100%; height: auto;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="position: absolute; top: -10px; width: 100%; height: auto;"><path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="position: relative; top: -50px; width: 100%; height: auto;"><path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path></svg>
         </div>
-    </header>
+    </div>
 
     <p class="intro-text">Hey you! Click on your kid’s favorites and I will show you 3 recipes your kiddo will love. Or gamify your kid's meal, so they too will enjoy the food experience more. Go ahead!</p>
 
