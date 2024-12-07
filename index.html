@@ -14,39 +14,40 @@
             text-align: center;
         }
 
+        /* HEADER SECTION */
         header {
             position: relative;
             overflow: hidden;
+            padding-bottom: 200px; /* space for waves */
         }
 
-        /* Brand and Heart at the Top (No absolute here) */
         .header-branding {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px 0;
+            z-index: 2;
             position: relative;
-            z-index: 2; /* ensure it appears above waves */
         }
 
-        .header-branding .header-text {
+        .header-text {
             font-size: 24px;
             font-weight: bold;
             color: #ffc8f3;
             margin-bottom: 5px;
         }
 
-        .header-branding .heart-icon {
+        .heart-icon {
             width: 40px;
             height: 40px;
         }
 
-        /* Waves Container */
         .waves-container {
-            position: relative;
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100%;
             height: auto;
-            margin-top: -20px; /* pull waves up slightly if needed */
         }
 
         .waves-container svg {
@@ -55,10 +56,9 @@
             height: auto;
         }
 
-        /* Position the waves absolutely, but this is for decoration only */
         .wave-yellow {
             position: absolute;
-            top: 0; 
+            top: 0;
             left: 0;
             width: 100%;
         }
@@ -70,12 +70,7 @@
             width: 100%;
         }
 
-        /* We can add some padding-bottom to create space for waves to show */
-        header {
-            padding-bottom: 180px;
-        }
-
-        /* Main intro section with text and video */
+        /* INTRO & VIDEO SECTION */
         main {
             max-width: 1200px;
             margin: 0 auto;
@@ -90,7 +85,7 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
-            margin-top: -120px; /* move up so text is closer under the waves */
+            margin-top: -150px; 
         }
 
         .intro-text {
@@ -103,10 +98,11 @@
 
         .video-container {
             flex: 0 0 auto;
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             overflow: hidden;
+            position: relative;
         }
 
         .video-container video {
@@ -115,12 +111,41 @@
             object-fit: cover;
         }
 
+        /* Video Controls Overlay */
+        .video-controls {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            font-size: 12px;
+            padding: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .play-pause-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            font-size: 14px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 4;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .intro-section {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                margin-top: -80px;
+                margin-top: -100px;
             }
             .intro-text, .video-container {
                 flex: 1 1 100%;
@@ -131,12 +156,11 @@
             }
         }
 
-        /* Example styling for categories and prompt - adjust as needed */
+        /* CATEGORY & FOOD GRIDS */
         .category-container {
-            margin: 20px auto;
+            margin: 40px auto;
             max-width: 600px;
             width: 90%;
-            text-align: center;
         }
 
         .step-title {
@@ -210,7 +234,7 @@
         .option-section {
             max-width: 600px;
             width: 90%;
-            margin: 20px auto;
+            margin: 40px auto;
             text-align: center;
         }
 
@@ -237,14 +261,15 @@
             background: #555;
         }
 
+        /* PROMPT & RESPONSE */
         .input-output-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 40px;
             gap: 20px;
             max-width: 600px;
-            margin: 20px auto;
+            margin: 40px auto;
             width: 90%;
             text-align: center;
         }
@@ -317,6 +342,7 @@
             color: #666;
             font-size: 14px;
         }
+
     </style>
 </head>
 <body>
@@ -329,13 +355,15 @@
             <!-- Yellow Wave -->
             <div class="wave-yellow">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+                    <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+                    </path>
                 </svg>
             </div>
             <!-- Dark Wave -->
-            <div class="wave-dark">
+            <div class="wave-dark" style="top:50px;">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+                    <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+                    </path>
                 </svg>
             </div>
         </div>
@@ -347,22 +375,96 @@
                 Hey you! Click on your kids favorites and I will show you 3 recipes your kiddo will love. Or gamify your kids meal, then they too enjoy the food experience more. Let them click on some veggies and what else they like. And I will give you some easy, healthy kidsproof recipes for today.
             </div>
             <div class="video-container">
-                <video id="videoPlayer" autoplay playsinline muted>
+                <video id="videoPlayer" playsinline>
                     <source src="images1/show my recipes.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <div class="video-controls" id="muteBtn">Unmute</div>
+                <div class="play-pause-overlay" id="playPauseOverlay">Play</div>
             </div>
         </section>
 
-        <!-- Example of categories (adjust as needed) -->
+        <!-- Veggies -->
         <div class="category-container">
-            <h2 class="step-title">Veggies</h2>
+            <h2 class="step-title">1. Click on some veggies!<br><span class="sub-step">I recommend more than one!</span></h2>
             <div class="button-container">
-                <!-- Insert your food buttons as before -->
-                <!-- Example:
                 <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt=""></div>
-                ... 
-                -->
+                <div class="food-button" data-food="Bacon"><img src="images1/Bacon.png" alt=""></div>
+                <div class="food-button" data-food="Bell peppers"><img src="images1/Bell peppers.png" alt=""></div>
+                <div class="food-button" data-food="Broccoli"><img src="images1/Broccoli.png" alt=""></div>
+                <div class="food-button" data-food="Brussels sprouts"><img src="images1/Brussels sprouts.png" alt=""></div>
+                <div class="food-button" data-food="Carrots"><img src="images1/Carrots.png" alt=""></div>
+                <div class="food-button" data-food="Cauliflower"><img src="images1/Cauliflower.png" alt=""></div>
+                <div class="food-button" data-food="Celery"><img src="images1/Celery.png" alt=""></div>
+                <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt=""></div>
+                <div class="food-button" data-food="Chickpeas"><img src="images1/Chickpeas.png" alt=""></div>
+                <div class="food-button" data-food="Cod filet"><img src="images1/Cod filet.png" alt=""></div>
+                <div class="food-button" data-food="Corn"><img src="images1/Corn.png" alt=""></div>
+                <div class="food-button" data-food="Courgette"><img src="images1/Courgette.png" alt=""></div>
+                <div class="food-button" data-food="Couscous"><img src="images1/Couscous.png" alt=""></div>
+                <div class="food-button" data-food="Cucumber"><img src="images1/Cucumber.png" alt=""></div>
+                <div class="food-button" data-food="Eggplant"><img src="images1/Eggplant.png" alt=""></div>
+                <div class="food-button" data-food="Eggs"><img src="images1/Eggs.png" alt=""></div>
+                <div class="food-button" data-food="Endives"><img src="images1/Endives.png" alt=""></div>
+                <div class="food-button" data-food="Fennel"><img src="images1/Fennel.png" alt=""></div>
+                <div class="food-button" data-food="Fish fingers"><img src="images1/Fish fingers.png" alt=""></div>
+                <div class="food-button" data-food="Gnocchi"><img src="images1/Gnocchi.png" alt=""></div>
+                <div class="food-button" data-food="Green beans"><img src="images1/Green beans.png" alt=""></div>
+                <div class="food-button" data-food="Kale"><img src="images1/Kale.png" alt=""></div>
+                <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lambs rib.png" alt=""></div>
+                <div class="food-button" data-food="Lentils"><img src="images1/Lentils.png" alt=""></div>
+                <div class="food-button" data-food="Lettuce"><img src="images1/Lettuce.png" alt=""></div>
+                <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt=""></div>
+                <div class="food-button" data-food="Minced beef"><img src="images1/Minced beef.png" alt=""></div>
+                <div class="food-button" data-food="Mushrooms"><img src="images1/Mushrooms.png" alt=""></div>
+                <div class="food-button" data-food="Noodles"><img src="images1/Noodles.png" alt=""></div>
+                <div class="food-button" data-food="Pasta"><img src="images1/Pasta.png" alt=""></div>
+                <div class="food-button" data-food="Peas"><img src="images1/Peas.png" alt=""></div>
+                <div class="food-button" data-food="Pita or flat breads"><img src="images1/Pita or flat breads.png" alt=""></div>
+                <div class="food-button" data-food="Porc loin"><img src="images1/Porc loin.png" alt=""></div>
+                <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt=""></div>
+                <div class="food-button" data-food="Pumkin"><img src="images1/Pumkin.png" alt=""></div>
+                <div class="food-button" data-food="Quinoa"><img src="images1/Quinoa.png" alt=""></div>
+                <div class="food-button" data-food="Red, brown or black beans"><img src="images1/Red, brown or black beans.png" alt=""></div>
+                <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt=""></div>
+                <div class="food-button" data-food="Salmon"><img src="images1/Salmon.png" alt=""></div>
+                <div class="food-button" data-food="Savory pastry"><img src="images1/Savory pastry.png" alt=""></div>
+                <div class="food-button" data-food="Spinach"><img src="images1/Spinach.png" alt=""></div>
+                <div class="food-button" data-food="Steak"><img src="images1/Steak.png" alt=""></div>
+                <div class="food-button" data-food="Sweet Potatoes"><img src="images1/Sweet Potatoes.png" alt=""></div>
+                <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt=""></div>
+                <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt=""></div>
+                <div class="food-button" data-food="Tortilla wraps"><img src="images1/Tortilla wraps.png" alt=""></div>
+                <div class="food-button" data-food="Tuna"><img src="images1/Tuna.png" alt=""></div>
+            </div>
+            <button class="category-done-btn" data-category="veggies">That's all for my veggies</button>
+        </div>
+
+        <!-- Example for sides -->
+        <div class="category-container">
+            <h2 class="step-title">2. Click on one side dish!!</h2>
+            <div class="button-container">
+                <!-- Add your side dish buttons if needed here -->
+            </div>
+            <button class="category-done-btn" data-category="sides">That's all for my side</button>
+        </div>
+
+        <!-- Example for protein/meat/fish -->
+        <div class="category-container">
+            <h2 class="step-title">3. Keep clicking if you like to add meat or fish or will it be vegan today?</h2>
+            <div class="button-container">
+                <!-- Add meat/fish/vegan buttons if needed here -->
+            </div>
+            <button class="category-done-btn" data-category="protein">That's all for my protein</button>
+        </div>
+
+        <div class="option-section">
+            <h2 class="step-title">Or choose a recipe type:</h2>
+            <div class="option-buttons">
+                <button class="option-btn" data-option="fast">FAST</button>
+                <button class="option-btn" data-option="filling">FILLING</button>
+                <button class="option-btn" data-option="glutenfree">GLUTENFREE</button>
+                <button class="option-btn" data-option="easy">EASY</button>
             </div>
         </div>
 
@@ -381,101 +483,125 @@
 
     <script>
         const selectedFoods = [];
-        document.addEventListener('DOMContentLoaded', () => {
-            const typingBox = document.getElementById('typingBox');
-            const responseDiv = document.getElementById('response');
-            const showRecipesBtn = document.getElementById('showRecipesBtn');
-            const foodButtons = document.querySelectorAll('.food-button');
-            const categoryDoneButtons = document.querySelectorAll('.category-done-btn');
-            const optionButtons = document.querySelectorAll('.option-btn');
-            const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
+        const typingBox = document.getElementById('typingBox');
+        const responseDiv = document.getElementById('response');
+        const showRecipesBtn = document.getElementById('showRecipesBtn');
+        const foodButtons = document.querySelectorAll('.food-button');
+        const categoryDoneButtons = document.querySelectorAll('.category-done-btn');
+        const optionButtons = document.querySelectorAll('.option-btn');
+        const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
 
-            if (foodButtons) {
-                foodButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        const foodItem = button.getAttribute('data-food');
-                        if (!selectedFoods.includes(foodItem)) {
-                            selectedFoods.push(foodItem);
-                            button.classList.add('selected');
-                        } else {
-                            const index = selectedFoods.indexOf(foodItem);
-                            selectedFoods.splice(index, 1);
-                            button.classList.remove('selected');
-                        }
-                        updatePrompt();
-                    });
-                });
-            }
-
-            if (categoryDoneButtons) {
-                categoryDoneButtons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
-                    });
-                });
-            }
-
-            if (optionButtons) {
-                optionButtons.forEach(optBtn => {
-                    optBtn.addEventListener('click', () => {
-                        const option = optBtn.getAttribute('data-option');
-                        if (!selectedFoods.includes(option)) {
-                            selectedFoods.push(option);
-                            optBtn.classList.add('selected');
-                        } else {
-                            const index = selectedFoods.indexOf(option);
-                            selectedFoods.splice(index, 1);
-                            optBtn.classList.remove('selected');
-                        }
-                        updatePrompt();
-                    });
-                });
-            }
-
-            if (showRecipesBtn) {
-                showRecipesBtn.addEventListener('click', generatePrompt);
-            }
-
-            function updatePrompt() {
-                if (typingBox) {
-                    typingBox.value = `I need inspiration for today's kids proof recipes based on: ${selectedFoods.join(', ')}`;
+        foodButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const foodItem = button.getAttribute('data-food');
+                if (!selectedFoods.includes(foodItem)) {
+                    selectedFoods.push(foodItem);
+                    button.classList.add('selected');
+                } else {
+                    const index = selectedFoods.indexOf(foodItem);
+                    selectedFoods.splice(index, 1);
+                    button.classList.remove('selected');
                 }
-            }
+                updatePrompt();
+            });
+        });
 
-            async function generatePrompt() {
-                const prompt = typingBox.value.trim() +
-                    " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside.";
+        categoryDoneButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
+            });
+        });
 
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ prompt }),
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const aiResponse = data.choices[0]?.message?.content.trim() || 'No response generated.';
-                        responseDiv.innerHTML = `<strong>Recipe Suggestions:</strong><br>${aiResponse.replace(/\n/g, '<br>')}`;
-                    } else {
-                        throw new Error(`Server Error: ${response.status}`);
-                    }
-                } catch (error) {
-                    responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+        optionButtons.forEach(optBtn => {
+            optBtn.addEventListener('click', () => {
+                const option = optBtn.getAttribute('data-option');
+                if (!selectedFoods.includes(option)) {
+                    selectedFoods.push(option);
+                    optBtn.classList.add('selected');
+                } else {
+                    const index = selectedFoods.indexOf(option);
+                    selectedFoods.splice(index, 1);
+                    optBtn.classList.remove('selected');
                 }
-            }
+                updatePrompt();
+            });
+        });
 
-            const videoPlayer = document.getElementById('videoPlayer');
-            // Attempt to unmute and play after a delay (likely blocked by browser)
-            setTimeout(() => {
+        showRecipesBtn.addEventListener('click', generatePrompt);
+
+        function updatePrompt() {
+            typingBox.value = `I need inspiration for today's kids proof recipes based on: ${selectedFoods.join(', ')}`;
+        }
+
+        async function generatePrompt() {
+            const prompt = typingBox.value.trim() +
+                " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside.";
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const aiResponse = data.choices[0]?.message?.content.trim() || 'No response generated.';
+                    responseDiv.innerHTML = `<strong>Recipe Suggestions:</strong><br>${aiResponse.replace(/\n/g, '<br>')}`;
+                } else {
+                    throw new Error(`Server Error: ${response.status}`);
+                }
+            } catch (error) {
+                responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+            }
+        }
+
+        // Video logic
+        const videoPlayer = document.getElementById('videoPlayer');
+        const muteBtn = document.getElementById('muteBtn');
+        const playPauseOverlay = document.getElementById('playPauseOverlay');
+
+        let hasPlayedOnce = false;
+
+        // Try to play with sound
+        setTimeout(() => {
+            videoPlayer.muted = false;
+            videoPlayer.play().catch(() => {
+                // If blocked, video remains muted
+                videoPlayer.muted = true;
+                muteBtn.textContent = "Unmute";
+            });
+        }, 1000);
+
+        videoPlayer.addEventListener('play', () => {
+            playPauseOverlay.style.display = 'none';
+        });
+
+        videoPlayer.addEventListener('ended', () => {
+            hasPlayedOnce = true;
+            playPauseOverlay.textContent = "Play Again";
+            playPauseOverlay.style.display = 'block';
+        });
+
+        muteBtn.addEventListener('click', () => {
+            if (videoPlayer.muted) {
                 videoPlayer.muted = false;
-                videoPlayer.play().catch(() => {
-                    // If blocked, stays muted
-                    videoPlayer.muted = true;
-                });
-            }, 1000);
+                muteBtn.textContent = "Mute";
+            } else {
+                videoPlayer.muted = true;
+                muteBtn.textContent = "Unmute";
+            }
+        });
+
+        playPauseOverlay.addEventListener('click', () => {
+            if (videoPlayer.paused) {
+                videoPlayer.play();
+                playPauseOverlay.style.display = 'none';
+            } else {
+                videoPlayer.pause();
+                playPauseOverlay.textContent = "Play";
+                playPauseOverlay.style.display = 'block';
+            }
         });
     </script>
 </body>
