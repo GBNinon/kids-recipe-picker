@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mealify AI</title>
     <style>
         body {
@@ -18,42 +18,16 @@
         .header {
             position: relative;
             width: 100%;
-            /* Removed the black background since waves form the visual header */
             overflow: hidden;
-        }
-
-        .header-inner {
-            position: relative;
-            z-index: 3; /* ensure brand and video are above waves */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-        }
-
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffc8f3;
-        }
-
-        .heart-icon {
-            width: 40px;
-            height: 40px;
+            /* No black background, waves provide design */
         }
 
         .video-container {
             position: absolute;
-            top: 10px;
+            top: 20px;
             right: 20px;
-            width: 80px;
-            height: 80px;
+            width: 150px; /* Larger video size */
+            height: 150px;
             border-radius: 50%;
             overflow: hidden;
             z-index: 3; /* Above waves */
@@ -65,36 +39,32 @@
             object-fit: cover;
         }
 
-        /* WAVES */
         .wavy-header-container {
             position: relative;
             width: 100%;
             height: auto;
-            z-index: 1; /* Waves behind brand & video */
+            z-index: 1;
+            padding-bottom: 180px; /* space for waves to show */
         }
 
-        /* Position waves absolutely inside container */
         .wavy-header-container svg {
-            display: block;
-            width: 100%;
-            height: auto;
             position: absolute;
             left: 0;
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
-        /* Yellow wave behind */
-        .wavy-header-container .yellow-wave {
+        .yellow-wave {
             top: 0;
             z-index: 1;
         }
 
-        /* Dark wave on top of the yellow wave */
-        .wavy-header-container .dark-wave {
+        .dark-wave {
             top: 0;
             z-index: 2;
         }
 
-        /* INTRO TEXT */
         .intro-text {
             font-size: 15px;
             font-weight: bold;
@@ -104,7 +74,6 @@
             line-height: 1.4;
         }
 
-        /* CATEGORY CONTAINERS */
         .category-container {
             margin: 20px auto;
             max-width: 600px;
@@ -134,10 +103,6 @@
         @media (max-width: 768px) {
             .button-container {
                 grid-template-columns: repeat(4, 1fr);
-            }
-
-            .header-text {
-                font-size: 20px;
             }
         }
 
@@ -185,7 +150,6 @@
             background: #555;
         }
 
-        /* OPTIONS */
         .option-section {
             max-width: 600px;
             width: 90%;
@@ -216,7 +180,6 @@
             background: #555;
         }
 
-        /* INPUT/OUTPUT */
         .input-output-container {
             display: flex;
             flex-direction: column;
@@ -285,6 +248,7 @@
             word-wrap: break-word;
             background: rgba(255, 255, 255, 0.8);
             font-family: 'Karla', sans-serif;
+            text-align: left;
         }
 
         footer {
@@ -298,24 +262,18 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-inner">
-            <div class="brand-container">
-                <span class="header-text">Mealify</span>
-                <img src="images1/heart-icon.png" alt="" class="heart-icon">
-            </div>
-            <div class="video-container">
-                <video class="avatar-video" autoplay playsinline muted id="videoPlayer">
-                    <source src="images1/show my recipes.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+        <div class="video-container">
+            <video class="avatar-video" autoplay playsinline muted id="videoPlayer">
+                <source src="images1/show my recipes.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
         <div class="wavy-header-container">
-            <!-- Yellow Wave (behind) -->
+            <!-- Yellow Wave -->
             <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
-            <!-- Dark Wave (above the yellow) -->
+            <!-- Dark Wave -->
             <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
@@ -492,29 +450,15 @@
                 }
             }
 
-            // Video autoplay attempt with sound
             const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.play().catch(() => {
-                const playButton = document.createElement('button');
-                playButton.innerText = "Unmute Video";
-                playButton.style.position = "fixed";
-                playButton.style.bottom = "20px";
-                playButton.style.right = "20px";
-                playButton.style.zIndex = "1000";
-                playButton.style.padding = "10px";
-                playButton.style.backgroundColor = "#333";
-                playButton.style.color = "#fff";
-                playButton.style.border = "none";
-                playButton.style.borderRadius = "5px";
-                playButton.style.cursor = "pointer";
-                document.body.appendChild(playButton);
-
-                playButton.addEventListener('click', () => {
-                    videoPlayer.muted = false;
-                    videoPlayer.play();
-                    playButton.remove();
+            // Attempt autoplay with sound:
+            setTimeout(() => {
+                videoPlayer.muted = false;
+                videoPlayer.play().catch(() => {
+                    // If blocked, remain muted
+                    videoPlayer.muted = true;
                 });
-            });
+            }, 1000);
         });
     </script>
 </body>
