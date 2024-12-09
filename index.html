@@ -18,13 +18,13 @@
         .header {
             position: relative;
             width: 100%;
-            background: #000;
+            /* Removed the black background since waves form the visual header */
             overflow: hidden;
         }
 
         .header-inner {
             position: relative;
-            z-index: 2; /* Ensure content appears above waves */
+            z-index: 3; /* ensure brand and video are above waves */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -35,7 +35,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            position: relative;
         }
 
         .header-text {
@@ -57,7 +56,7 @@
             height: 80px;
             border-radius: 50%;
             overflow: hidden;
-            z-index: 2;
+            z-index: 3; /* Above waves */
         }
 
         .avatar-video {
@@ -71,12 +70,28 @@
             position: relative;
             width: 100%;
             height: auto;
-            z-index: 1;
+            z-index: 1; /* Waves behind brand & video */
         }
+
+        /* Position waves absolutely inside container */
         .wavy-header-container svg {
             display: block;
             width: 100%;
             height: auto;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Yellow wave behind */
+        .wavy-header-container .yellow-wave {
+            top: 0;
+            z-index: 1;
+        }
+
+        /* Dark wave on top of the yellow wave */
+        .wavy-header-container .dark-wave {
+            top: 0;
+            z-index: 2;
         }
 
         /* INTRO TEXT */
@@ -296,12 +311,12 @@
             </div>
         </div>
         <div class="wavy-header-container">
-            <!-- Orange Wave -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <!-- Yellow Wave (behind) -->
+            <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
-            <!-- Dark Wave -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <!-- Dark Wave (above the yellow) -->
+            <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
         </div>
@@ -428,7 +443,6 @@
             categoryDoneButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
-                    // Additional logic if needed
                 });
             });
 
@@ -478,7 +492,7 @@
                 }
             }
 
-            // Attempt auto-play of video and show unmute if blocked
+            // Video autoplay attempt with sound
             const videoPlayer = document.getElementById('videoPlayer');
             videoPlayer.play().catch(() => {
                 const playButton = document.createElement('button');
