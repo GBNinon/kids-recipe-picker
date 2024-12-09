@@ -7,52 +7,38 @@
     <style>
         body {
             font-family: 'Karla', sans-serif;
-            text-align: center;
-            background-color: #ffffff;
+            background: #fff;
             color: #333;
             margin: 0;
             padding: 0;
         }
 
-        /* HEADER */
-        .header {
-            position: relative;
+        /* HEADER SECTION WITH 10-COLUMN GRID */
+        .header-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            position: relative; /* for waves and video */
             width: 100%;
             overflow: hidden;
-            /* No black background, waves provide design */
+            /* Adding some extra vertical space so waves are visible */
+            padding-bottom: 200px; 
         }
 
-        .video-container {
+        /* Waves */
+        .waves-container {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 150px; /* Larger video size */
-            height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            z-index: 3; /* Above waves */
-        }
-
-        .avatar-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .wavy-header-container {
-            position: relative;
+            top: 0;
+            left: 0;
             width: 100%;
             height: auto;
             z-index: 1;
-            padding-bottom: 180px; /* space for waves to show */
         }
 
-        .wavy-header-container svg {
+        .waves-container svg {
             position: absolute;
             left: 0;
             width: 100%;
             height: auto;
-            display: block;
         }
 
         .yellow-wave {
@@ -61,23 +47,54 @@
         }
 
         .dark-wave {
-            top: 0;
+            top: 20px; /* move it down so yellow is visible above */
             z-index: 2;
+        }
+
+        /* VIDEO CONTAINER */
+        .video-container {
+            grid-column: 8 / span 2; /* position video near right side, about 20% in */
+            /* Adjust row positioning by margin or padding */
+            margin-top: 20px;
+            justify-self: end; /* align to the right column */
+            width: 150px; 
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            z-index: 3;
+        }
+
+        .avatar-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* INTRO TEXT AND MAIN CONTENT */
+        main {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .intro-text {
             font-size: 15px;
             font-weight: bold;
-            text-align: center;
-            margin: 20px auto;
-            max-width: 600px;
             line-height: 1.4;
+            grid-column: 2 / span 8; /* center text by spanning multiple columns */
+            margin-top: -100px; /* move it up closer under waves if desired */
+            text-align: center;
         }
 
         .category-container {
+            grid-column: 2 / span 8; /* keep content centered */
             margin: 20px auto;
             max-width: 600px;
-            width: 90%;
+            width: 100%;
+            text-align: center;
         }
 
         .step-title {
@@ -88,8 +105,8 @@
         .sub-step {
             font-size: 14px;
             color: #9c5c9c;
-            display: block;
             margin-top: 5px;
+            display: block;
         }
 
         .button-container {
@@ -108,13 +125,10 @@
 
         .food-button {
             cursor: pointer;
-            text-align: center;
-            display: inline-block;
             width: 100%;
-            height: auto;
             background: #fff;
             border-radius: 5px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .food-button img {
@@ -151,8 +165,7 @@
         }
 
         .option-section {
-            max-width: 600px;
-            width: 90%;
+            grid-column: 2 / span 8;
             margin: 20px auto;
             text-align: center;
         }
@@ -181,6 +194,7 @@
         }
 
         .input-output-container {
+            grid-column: 2 / span 8;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -188,7 +202,7 @@
             gap: 20px;
             max-width: 600px;
             margin: 20px auto;
-            width: 90%;
+            width: 100%;
         }
 
         .input-button-row {
@@ -212,7 +226,7 @@
             border: 2px solid #000;
             border-radius: 5px;
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255,255,255,0.8);
             overflow: auto;
             font-family: 'Karla', sans-serif;
         }
@@ -246,127 +260,133 @@
             font-size: 16px;
             overflow: auto;
             word-wrap: break-word;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255,255,255,0.8);
             font-family: 'Karla', sans-serif;
             text-align: left;
         }
 
         footer {
-            margin-top: 40px;
+            text-align: center;
             padding: 10px;
             background: #f7f7f7;
             color: #666;
             font-size: 14px;
+            margin-top: 40px;
+            grid-column: 1 / -1;
         }
+
     </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header-grid">
+        <!-- Waves -->
+        <div class="waves-container">
+            <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#FAD378" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+            </svg>
+            <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#273036" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
+            </svg>
+        </div>
+
+        <!-- Video placed in columns 8-9 to approximately match 20% from edge -->
         <div class="video-container">
             <video class="avatar-video" autoplay playsinline muted id="videoPlayer">
                 <source src="images1/show my recipes.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
-        <div class="wavy-header-container">
-            <!-- Yellow Wave -->
-            <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#FAD378" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
-            </svg>
-            <!-- Dark Wave -->
-            <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#273036" fill-opacity="1" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
-            </svg>
-        </div>
     </header>
 
-    <p class="intro-text">Hey you! Click on your kid’s favorites and I will show you 3 recipes your kiddo will love. Or gamify your kid's meal, so they too will enjoy the food experience more. Go ahead!</p>
+    <main>
+        <p class="intro-text">Hey you! Click on your kid’s favorites and I will show you 3 recipes your kiddo will love. Or gamify your kid's meal, so they too will enjoy the food experience more. Go ahead!</p>
 
-    <div class="category-container">
-        <h2 class="step-title">1. Click on some veggies! <span class="sub-step">I recommend more than one!</span></h2>
-        <div class="button-container">
-            <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt=""></div>
-            <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt=""></div>
-            <div class="food-button" data-food="Green beans"><img src="images1/Green beans.png" alt=""></div>
-            <div class="food-button" data-food="Bell peppers"><img src="images1/Bell peppers.png" alt=""></div>
-            <div class="food-button" data-food="Chickpeas"><img src="images1/Chickpeas.png" alt=""></div>
-            <div class="food-button" data-food="Celery"><img src="images1/Celery.png" alt=""></div>
-            <div class="food-button" data-food="Courgette"><img src="images1/Courgette.png" alt=""></div>
-            <div class="food-button" data-food="Lettuce"><img src="images1/Lettuce.png" alt=""></div>
-            <div class="food-button" data-food="Broccoli"><img src="images1/Broccoli.png" alt=""></div>
-            <div class="food-button" data-food="Carrots"><img src="images1/Carrots.png" alt=""></div>
-            <div class="food-button" data-food="Eggplant"><img src="images1/Eggplant.png" alt=""></div>
-            <div class="food-button" data-food="Kale"><img src="images1/Kale.png" alt=""></div>
-            <div class="food-button" data-food="Fennel"><img src="images1/Fennel.png" alt=""></div>
-            <div class="food-button" data-food="Cucumber"><img src="images1/Cucumber.png" alt=""></div>
-            <div class="food-button" data-food="Lentils"><img src="images1/Lentils.png" alt=""></div>
-            <div class="food-button" data-food="Mushrooms"><img src="images1/Mushrooms.png" alt=""></div>
-            <div class="food-button" data-food="Peas"><img src="images1/Peas.png" alt=""></div>
-            <div class="food-button" data-food="Pumkin"><img src="images1/Pumkin.png" alt=""></div>
-            <div class="food-button" data-food="Spinach"><img src="images1/Spinach.png" alt=""></div>
-            <div class="food-button" data-food="Corn"><img src="images1/Corn.png" alt=""></div>
-            <div class="food-button" data-food="Endives"><img src="images1/Endives.png" alt=""></div>
-            <div class="food-button" data-food="Red, brown or black beans"><img src="images1/Red, brown or black beans.png" alt=""></div>
-            <div class="food-button" data-food="Cauliflower"><img src="images1/Cauliflower.png" alt=""></div>
-            <div class="food-button" data-food="Brussels sprouts"><img src="images1/Brussels sprouts.png" alt=""></div>
+        <div class="category-container">
+            <h2 class="step-title">1. Click on some veggies! <span class="sub-step">I recommend more than one!</span></h2>
+            <div class="button-container">
+                <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt=""></div>
+                <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt=""></div>
+                <div class="food-button" data-food="Green beans"><img src="images1/Green beans.png" alt=""></div>
+                <div class="food-button" data-food="Bell peppers"><img src="images1/Bell peppers.png" alt=""></div>
+                <div class="food-button" data-food="Chickpeas"><img src="images1/Chickpeas.png" alt=""></div>
+                <div class="food-button" data-food="Celery"><img src="images1/Celery.png" alt=""></div>
+                <div class="food-button" data-food="Courgette"><img src="images1/Courgette.png" alt=""></div>
+                <div class="food-button" data-food="Lettuce"><img src="images1/Lettuce.png" alt=""></div>
+                <div class="food-button" data-food="Broccoli"><img src="images1/Broccoli.png" alt=""></div>
+                <div class="food-button" data-food="Carrots"><img src="images1/Carrots.png" alt=""></div>
+                <div class="food-button" data-food="Eggplant"><img src="images1/Eggplant.png" alt=""></div>
+                <div class="food-button" data-food="Kale"><img src="images1/Kale.png" alt=""></div>
+                <div class="food-button" data-food="Fennel"><img src="images1/Fennel.png" alt=""></div>
+                <div class="food-button" data-food="Cucumber"><img src="images1/Cucumber.png" alt=""></div>
+                <div class="food-button" data-food="Lentils"><img src="images1/Lentils.png" alt=""></div>
+                <div class="food-button" data-food="Mushrooms"><img src="images1/Mushrooms.png" alt=""></div>
+                <div class="food-button" data-food="Peas"><img src="images1/Peas.png" alt=""></div>
+                <div class="food-button" data-food="Pumkin"><img src="images1/Pumkin.png" alt=""></div>
+                <div class="food-button" data-food="Spinach"><img src="images1/Spinach.png" alt=""></div>
+                <div class="food-button" data-food="Corn"><img src="images1/Corn.png" alt=""></div>
+                <div class="food-button" data-food="Endives"><img src="images1/Endives.png" alt=""></div>
+                <div class="food-button" data-food="Red, brown or black beans"><img src="images1/Red, brown or black beans.png" alt=""></div>
+                <div class="food-button" data-food="Cauliflower"><img src="images1/Cauliflower.png" alt=""></div>
+                <div class="food-button" data-food="Brussels sprouts"><img src="images1/Brussels sprouts.png" alt=""></div>
+            </div>
+            <button class="category-done-btn" data-category="veggies">That's all for my veggies</button>
         </div>
-        <button class="category-done-btn" data-category="veggies">That's all for my veggies</button>
-    </div>
 
-    <div class="category-container">
-        <h2 class="step-title">2. Click on one side dish!!</h2>
-        <div class="button-container">
-            <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt=""></div>
-            <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt=""></div>
-            <div class="food-button" data-food="Sweet Potatoes"><img src="images1/Sweet Potatoes.png" alt=""></div>
-            <div class="food-button" data-food="Tortilla wraps"><img src="images1/Tortilla wraps.png" alt=""></div>
-            <div class="food-button" data-food="Quinoa"><img src="images1/Quinoa.png" alt=""></div>
-            <div class="food-button" data-food="Pasta"><img src="images1/Pasta.png" alt=""></div>
-            <div class="food-button" data-food="Pita or flat breads"><img src="images1/Pita or flat breads.png" alt=""></div>
-            <div class="food-button" data-food="Eggs"><img src="images1/Eggs.png" alt=""></div>
-            <div class="food-button" data-food="Noodles"><img src="images1/Noodles.png" alt=""></div>
-            <div class="food-button" data-food="Savory pastry"><img src="images1/Savory pastry.png" alt=""></div>
-            <div class="food-button" data-food="Gnocchi"><img src="images1/Gnocchi.png" alt=""></div>
-            <div class="food-button" data-food="Couscous"><img src="images1/Couscous.png" alt=""></div>
+        <div class="category-container">
+            <h2 class="step-title">2. Click on one side dish!!</h2>
+            <div class="button-container">
+                <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt=""></div>
+                <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt=""></div>
+                <div class="food-button" data-food="Sweet Potatoes"><img src="images1/Sweet Potatoes.png" alt=""></div>
+                <div class="food-button" data-food="Tortilla wraps"><img src="images1/Tortilla wraps.png" alt=""></div>
+                <div class="food-button" data-food="Quinoa"><img src="images1/Quinoa.png" alt=""></div>
+                <div class="food-button" data-food="Pasta"><img src="images1/Pasta.png" alt=""></div>
+                <div class="food-button" data-food="Pita or flat breads"><img src="images1/Pita or flat breads.png" alt=""></div>
+                <div class="food-button" data-food="Eggs"><img src="images1/Eggs.png" alt=""></div>
+                <div class="food-button" data-food="Noodles"><img src="images1/Noodles.png" alt=""></div>
+                <div class="food-button" data-food="Savory pastry"><img src="images1/Savory pastry.png" alt=""></div>
+                <div class="food-button" data-food="Gnocchi"><img src="images1/Gnocchi.png" alt=""></div>
+                <div class="food-button" data-food="Couscous"><img src="images1/Couscous.png" alt=""></div>
+            </div>
+            <button class="category-done-btn" data-category="sides">That's all for my side</button>
         </div>
-        <button class="category-done-btn" data-category="sides">That's all for my side</button>
-    </div>
 
-    <div class="category-container">
-        <h2 class="step-title">3. Keep clicking if you like to add meat or fish or will it be vegan today?</h2>
-        <div class="button-container">
-            <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt=""></div>
-            <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt=""></div>
-            <div class="food-button" data-food="Salmon"><img src="images1/Salmon.png" alt=""></div>
-            <div class="food-button" data-food="Fish fingers"><img src="images1/Fish fingers.png" alt=""></div>
-            <div class="food-button" data-food="Tuna"><img src="images1/Tuna.png" alt=""></div>
-            <div class="food-button" data-food="Bacon"><img src="images1/Bacon.png" alt=""></div>
-            <div class="food-button" data-food="Steak"><img src="images1/Steak.png" alt=""></div>
-            <div class="food-button" data-food="Porc loin"><img src="images1/Porc loin.png" alt=""></div>
-            <div class="food-button" data-food="Cod filet"><img src="images1/Cod filet.png" alt=""></div>
-            <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lambs rib.png" alt=""></div>
-            <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt=""></div>
+        <div class="category-container">
+            <h2 class="step-title">3. Keep clicking if you like to add meat or fish or will it be vegan today?</h2>
+            <div class="button-container">
+                <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt=""></div>
+                <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt=""></div>
+                <div class="food-button" data-food="Salmon"><img src="images1/Salmon.png" alt=""></div>
+                <div class="food-button" data-food="Fish fingers"><img src="images1/Fish fingers.png" alt=""></div>
+                <div class="food-button" data-food="Tuna"><img src="images1/Tuna.png" alt=""></div>
+                <div class="food-button" data-food="Bacon"><img src="images1/Bacon.png" alt=""></div>
+                <div class="food-button" data-food="Steak"><img src="images1/Steak.png" alt=""></div>
+                <div class="food-button" data-food="Porc loin"><img src="images1/Porc loin.png" alt=""></div>
+                <div class="food-button" data-food="Cod filet"><img src="images1/Cod filet.png" alt=""></div>
+                <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lambs rib.png" alt=""></div>
+                <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt=""></div>
+            </div>
+            <button class="category-done-btn" data-category="protein">That's all for my protein</button>
         </div>
-        <button class="category-done-btn" data-category="protein">That's all for my protein</button>
-    </div>
 
-    <div class="option-section">
-        <h2 class="step-title">Or choose a recipe type:</h2>
-        <div class="option-buttons">
-            <button class="option-btn" data-option="fast">FAST</button>
-            <button class="option-btn" data-option="filling">FILLING</button>
-            <button class="option-btn" data-option="glutenfree">GLUTENFREE</button>
-            <button class="option-btn" data-option="easy">EASY</button>
+        <div class="option-section">
+            <h2 class="step-title">Or choose a recipe type:</h2>
+            <div class="option-buttons">
+                <button class="option-btn" data-option="fast">FAST</button>
+                <button class="option-btn" data-option="filling">FILLING</button>
+                <button class="option-btn" data-option="glutenfree">GLUTENFREE</button>
+                <button class="option-btn" data-option="easy">EASY</button>
+            </div>
         </div>
-    </div>
 
-    <div class="input-output-container">
-        <div class="input-button-row">
-            <textarea class="typing-box" id="typingBox" readonly>I need inspiration for today's kids proof recipes based on:</textarea>
-            <button class="submit-button" id="showRecipesBtn">SHOW MY RECIPES</button>
+        <div class="input-output-container">
+            <div class="input-button-row">
+                <textarea class="typing-box" id="typingBox" readonly>I need inspiration for today's kids proof recipes based on:</textarea>
+                <button class="submit-button" id="showRecipesBtn">SHOW MY RECIPES</button>
+            </div>
+            <div id="response" class="response-box">Your recipes will appear here...</div>
         </div>
-        <div id="response" class="response-box">Your recipes will appear here...</div>
-    </div>
+    </main>
 
     <footer>
         &copy; 2024 Mealify. All rights reserved.
@@ -455,7 +475,6 @@
             setTimeout(() => {
                 videoPlayer.muted = false;
                 videoPlayer.play().catch(() => {
-                    // If blocked, remain muted
                     videoPlayer.muted = true;
                 });
             }, 1000);
