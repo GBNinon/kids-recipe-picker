@@ -24,7 +24,6 @@
             padding-bottom: 200px; /* space for waves */
         }
 
-        /* Waves container */
         .waves-container {
             position: absolute;
             top: 0;
@@ -42,21 +41,20 @@
             display: block;
         }
 
-        /* Dark wave higher (on top) */
+        /* Dark wave higher */
         .dark-wave {
-            top: 0; 
+            top: 0;
             z-index: 2;
         }
 
-        /* Yellow wave lower (underneath) */
+        /* Yellow wave lower (15px down) */
         .yellow-wave {
-            top: 15px; 
+            top: 15px;
             z-index: 1;
         }
 
-        /* VIDEO CONTAINER */
         .video-container {
-            grid-column: 7 / span 2; 
+            grid-column: 8 / span 2; 
             margin-top: 20px;
             justify-self: end;
             width: 150px; 
@@ -275,25 +273,44 @@
             margin-top: 40px;
             grid-column: 1 / -1;
         }
+
+        /* Unmute button styling */
+        .unmute-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none; /* hidden by default */
+            font-weight: bold;
+        }
+
+        .unmute-button:hover {
+            background: #333;
+        }
     </style>
 </head>
 <body>
     <header class="header-grid">
         <div class="waves-container">
-            <!-- Dark wave at top -->
+            <!-- Dark wave higher -->
             <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#273036" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
-
-            <!-- Yellow wave lower (underneath) -->
+            <!-- Yellow wave lower -->
             <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#FAD378" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
         </div>
 
-        <!-- Video in columns 8-9 -->
         <div class="video-container">
-            <video class="avatar-video" id="videoPlayer" playsinline>
+            <video class="avatar-video" id="videoPlayer" playsinline loop muted>
                 <source src="images1/show my recipes.mp4" type="video/mp4">
             </video>
         </div>
@@ -306,7 +323,6 @@
         <div class="category-container">
             <h2 class="step-title">1. Click on some veggies! <span class="sub-step">I recommend more than one!</span></h2>
             <div class="button-container">
-                <!-- Veggie buttons as before -->
                 <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt=""></div>
                 <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt=""></div>
                 <div class="food-button" data-food="Green beans"><img src="images1/Green beans.png" alt=""></div>
@@ -397,8 +413,14 @@
         &copy; 2024 Mealify. All rights reserved.
     </footer>
 
+    <!-- Unmute Button -->
+    <button class="unmute-button" id="unmuteBtn">UNMUTE</button>
+
     <script>
         const selectedFoods = [];
+        const videoPlayer = document.getElementById('videoPlayer');
+        const unmuteBtn = document.getElementById('unmuteBtn');
+
         document.addEventListener('DOMContentLoaded', () => {
             const typingBox = document.getElementById('typingBox');
             const responseDiv = document.getElementById('response');
@@ -475,20 +497,38 @@
                 }
             }
 
-            const videoPlayer = document.getElementById('videoPlayer');
-            // Attempt to autoplay with sound: 
-            // Start muted, then unmute after a delay and try play
+            // Start video muted & autoplay
             videoPlayer.muted = true;
-            videoPlayer.play().then(() => {
-                // Once playing muted, try to unmute
-                setTimeout(() => {
+            videoPlayer.play().catch(() => {
+                console.log("Initial autoplay blocked, video stays muted.");
+            });
+
+            // After 7 seconds, attempt to unmute and play with sound
+            setTimeout(() => {
+                videoPlayer.muted = false;
+                videoPlayer.play().then(() => {
+                    console.log("Video playing with sound after 7s.");
+                }).catch(() => {
+                    console.log("Autoplay with sound blocked, showing unmute button.");
+                    unmuteBtn.style.display = "block";
+                });
+            }, 7000);
+
+            // Unmute button logic
+            unmuteBtn.addEventListener('click', () => {
+                if (videoPlayer.muted) {
                     videoPlayer.muted = false;
-                    videoPlayer.play().catch(() => {
-                        console.log("Sound autoplay blocked by the browser.");
+                    videoPlayer.play().then(() => {
+                        console.log("Video unmuted by user.");
+                        unmuteBtn.innerText = "MUTE";
+                    }).catch(() => {
+                        console.log("Play with sound still blocked.");
                     });
-                }, 500);
-            }).catch(() => {
-                console.log("Autoplay blocked, video stays muted.");
+                } else {
+                    // If user clicks again, mute it
+                    videoPlayer.muted = true;
+                    unmuteBtn.innerText = "UNMUTE";
+                }
             });
         });
     </script>
