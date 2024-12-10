@@ -51,7 +51,6 @@
             z-index: 1;
         }
 
-        /* Move video slightly left (column 7) and lower (margin-top:50px) */
         .video-container {
             grid-column: 7 / span 2;
             margin-top: 50px;
@@ -79,12 +78,12 @@
         }
 
         .intro-text {
-            font-size: 18px; /* Larger font */
-            font-weight: normal; /* Not bold */
+            font-size: 18px; 
+            font-weight: normal; 
             line-height: 1.4;
             grid-column: 2 / span 8;
             text-align: center;
-            margin-bottom: 60px; /* spacing before veggies section */
+            margin-bottom: 60px; 
         }
 
         .category-container {
@@ -204,25 +203,30 @@
             width: 100%;
         }
 
-        .input-button-row {
-            display: flex;
-            align-items: center;
+        /* Wrap textarea and button in one container to share the border */
+        .input-wrapper {
             width: 100%;
             max-width: 600px;
-            margin: 0 auto; /* ensures alignment with response-box */
+            margin: 0 auto;
+            position: relative;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            /* This ensures they share the same "box" */
         }
 
         .typing-box {
             flex: 1;
             height: 50px;
             padding: 10px;
-            border: 2px solid #000;
-            border-right: none;
-            border-radius: 5px 0 0 5px;
+            border: none;
             font-size: 16px;
-            background: rgba(255,255,255,0.8);
+            background: transparent;
             overflow: auto;
             font-family: 'Karla', sans-serif;
+            box-sizing: border-box;
         }
 
         .submit-button {
@@ -233,7 +237,7 @@
             cursor: pointer;
             background-color: #000;
             color: #fff;
-            border: 2px solid #000;
+            border: none;
             border-radius: 0 5px 5px 0;
             text-transform: uppercase;
             display: flex;
@@ -258,6 +262,7 @@
             background: rgba(255,255,255,0.8);
             font-family: 'Karla', sans-serif;
             text-align: left;
+            min-height: 200px; /* Increased for more initial height */
         }
 
         footer {
@@ -283,7 +288,7 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            display: none; 
+            display: none;
         }
 
         .unmute-button:hover, .play-pause-button:hover {
@@ -307,6 +312,7 @@
                 <path fill="#FAD378" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
         </div>
+
         <div class="video-container">
             <video class="avatar-video" id="videoPlayer" autoplay playsinline loop muted>
                 <source src="images1/show my recipes.mp4" type="video/mp4">
@@ -401,7 +407,8 @@
         </div>
 
         <div class="input-output-container">
-            <div class="input-button-row">
+            <!-- Single wrapper with border for textarea + button -->
+            <div class="input-wrapper">
                 <textarea class="typing-box" id="typingBox" readonly>I need inspiration for today's kids proof recipes based on:</textarea>
                 <button class="submit-button" id="showRecipesBtn">SHOW MY RECIPES</button>
             </div>
