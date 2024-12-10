@@ -275,7 +275,7 @@
         }
 
         /* Unmute button styling */
-        .unmute-button {
+        .unmute-button, .play-pause-button {
             position: fixed;
             top: 20px;
             right: 20px;
@@ -287,12 +287,17 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 14px;
-            display: none; /* hidden by default */
             font-weight: bold;
+            display: none; /* hidden by default */
         }
 
-        .unmute-button:hover {
+        .unmute-button:hover, .play-pause-button:hover {
             background: #333;
+        }
+
+        /* Play/Pause button underneath the unmute button */
+        .play-pause-button {
+            top: 60px; /* 40px below the unmute button */
         }
     </style>
 </head>
@@ -310,7 +315,8 @@
         </div>
 
         <div class="video-container">
-            <video class="avatar-video" id="videoPlayer" playsinline loop muted>
+            <!-- No muted attribute here, attempts autoplay with sound -->
+            <video class="avatar-video" id="videoPlayer" autoplay playsinline loop>
                 <source src="images1/show my recipes.mp4" type="video/mp4">
             </video>
         </div>
@@ -413,13 +419,15 @@
         &copy; 2024 Mealify. All rights reserved.
     </footer>
 
-    <!-- Unmute Button -->
+    <!-- Unmute and Play/Pause Buttons -->
     <button class="unmute-button" id="unmuteBtn">UNMUTE</button>
+    <button class="play-pause-button" id="playPauseBtn">PLAY/PAUSE</button>
 
     <script>
         const selectedFoods = [];
         const videoPlayer = document.getElementById('videoPlayer');
         const unmuteBtn = document.getElementById('unmuteBtn');
+        const playPauseBtn = document.getElementById('playPauseBtn');
 
         document.addEventListener('DOMContentLoaded', () => {
             const typingBox = document.getElementById('typingBox');
@@ -497,37 +505,47 @@
                 }
             }
 
-            // Start video muted & autoplay
-            videoPlayer.muted = true;
+            // Try autoplay with sound on page load
             videoPlayer.play().catch(() => {
-                console.log("Initial autoplay blocked, video stays muted.");
+                console.log("Initial autoplay with sound blocked.");
+                // Don't show buttons yet, we will try again after 7 seconds
             });
 
-            // After 7 seconds, attempt to unmute and play with sound
+            // After 7 seconds, try again
             setTimeout(() => {
-                videoPlayer.muted = false;
                 videoPlayer.play().then(() => {
-                    console.log("Video playing with sound after 7s.");
+                    console.log("Video playing with sound after 7s attempt.");
+                    // If it plays now, no need for buttons
                 }).catch(() => {
-                    console.log("Autoplay with sound blocked, showing unmute button.");
+                    console.log("Autoplay with sound still blocked after 7s, showing buttons.");
                     unmuteBtn.style.display = "block";
+                    playPauseBtn.style.display = "block";
                 });
             }, 7000);
 
-            // Unmute button logic
+            // Unmute button toggles sound
             unmuteBtn.addEventListener('click', () => {
-                if (videoPlayer.muted) {
-                    videoPlayer.muted = false;
+                // Toggle muted state
+                videoPlayer.muted = !videoPlayer.muted;
+                unmuteBtn.innerText = videoPlayer.muted ? "UNMUTE" : "MUTE";
+
+                // Try to play again (user interaction might allow sound now)
+                videoPlayer.play().catch(() => {
+                    console.log("Play with sound blocked even after interaction.");
+                });
+            });
+
+            // Play/Pause button
+            playPauseBtn.addEventListener('click', () => {
+                if (videoPlayer.paused) {
                     videoPlayer.play().then(() => {
-                        console.log("Video unmuted by user.");
-                        unmuteBtn.innerText = "MUTE";
+                        playPauseBtn.innerText = "PAUSE";
                     }).catch(() => {
-                        console.log("Play with sound still blocked.");
+                        console.log("Play attempt failed.");
                     });
                 } else {
-                    // If user clicks again, mute it
-                    videoPlayer.muted = true;
-                    unmuteBtn.innerText = "UNMUTE";
+                    videoPlayer.pause();
+                    playPauseBtn.innerText = "PLAY";
                 }
             });
         });
