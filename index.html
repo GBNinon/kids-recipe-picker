@@ -18,10 +18,10 @@
         .header-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            position: relative; 
+            position: relative;
             width: 100%;
             overflow: hidden;
-            padding-bottom: 100px; /* reduced from 200px to bring intro text closer */
+            padding-bottom: 100px; /* Reduced to bring intro closer */
         }
 
         .waves-container {
@@ -41,24 +41,22 @@
             display: block;
         }
 
-        /* Dark wave higher */
         .dark-wave {
             top: 0;
             z-index: 2;
         }
 
-        /* Yellow wave lower (15px down) */
         .yellow-wave {
             top: 15px;
             z-index: 1;
         }
 
-        /* Move video container slightly left (column 7) and lower (margin-top:50px) */
+        /* Move video slightly left (column 7) and lower (margin-top:50px) */
         .video-container {
-            grid-column: 7 / span 2; 
+            grid-column: 7 / span 2;
             margin-top: 50px;
             justify-self: end;
-            width: 150px; 
+            width: 150px;
             height: 150px;
             border-radius: 50%;
             overflow: hidden;
@@ -81,16 +79,16 @@
         }
 
         .intro-text {
-            font-size: 18px; /* made larger */
-            font-weight: normal; /* not bold */
+            font-size: 18px; /* Larger font */
+            font-weight: normal; /* Not bold */
             line-height: 1.4;
-            grid-column: 2 / span 8; 
+            grid-column: 2 / span 8;
             text-align: center;
-            margin-bottom: 60px; /* about "3 enters" before veggies title */
+            margin-bottom: 60px; /* spacing before veggies section */
         }
 
         .category-container {
-            grid-column: 2 / span 8; 
+            grid-column: 2 / span 8;
             margin: 20px auto;
             max-width: 600px;
             width: 100%;
@@ -210,14 +208,8 @@
             display: flex;
             align-items: center;
             width: 100%;
-            gap: 0; /* no gap so the button touches the typing box */
-        }
-
-        @media (max-width: 768px) {
-            .input-button-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
+            max-width: 600px;
+            margin: 0 auto; /* ensures alignment with response-box */
         }
 
         .typing-box {
@@ -225,7 +217,8 @@
             height: 50px;
             padding: 10px;
             border: 2px solid #000;
-            border-radius: 5px 0 0 5px; /* round left corners only */
+            border-right: none;
+            border-radius: 5px 0 0 5px;
             font-size: 16px;
             background: rgba(255,255,255,0.8);
             overflow: auto;
@@ -238,10 +231,10 @@
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            background-color: #000; /* black background */
+            background-color: #000;
             color: #fff;
-            border: 2px solid #000; /* same border */
-            border-radius: 0 5px 5px 0; /* round right corners only */
+            border: 2px solid #000;
+            border-radius: 0 5px 5px 0;
             text-transform: uppercase;
             display: flex;
             align-items: center;
@@ -254,7 +247,8 @@
 
         .response-box {
             width: 100%;
-            min-height: 150px;
+            max-width: 600px;
+            margin: 20px auto 0 auto;
             padding: 10px;
             border: 2px solid #000;
             border-radius: 5px;
@@ -264,7 +258,6 @@
             background: rgba(255,255,255,0.8);
             font-family: 'Karla', sans-serif;
             text-align: left;
-            margin-top: 20px; /* some spacing above */
         }
 
         footer {
@@ -277,7 +270,6 @@
             grid-column: 1 / -1;
         }
 
-        /* Unmute and Play/Pause Buttons */
         .unmute-button, .play-pause-button {
             position: fixed;
             top: 20px;
@@ -291,7 +283,7 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            display: none; /* hidden initially, show on DOMContentLoaded */
+            display: none; 
         }
 
         .unmute-button:hover, .play-pause-button:hover {
@@ -299,7 +291,7 @@
         }
 
         .play-pause-button {
-            top: 60px; /* 40px below the unmute button */
+            top: 60px;
         }
     </style>
 </head>
@@ -315,7 +307,6 @@
                 <path fill="#FAD378" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
         </div>
-
         <div class="video-container">
             <video class="avatar-video" id="videoPlayer" autoplay playsinline loop muted>
                 <source src="images1/show my recipes.mp4" type="video/mp4">
@@ -422,7 +413,6 @@
         &copy; 2024 Mealify. All rights reserved.
     </footer>
 
-    <!-- Unmute and Play/Pause Buttons -->
     <button class="unmute-button" id="unmuteBtn">UNMUTE</button>
     <button class="play-pause-button" id="playPauseBtn">PLAY/PAUSE</button>
 
@@ -508,8 +498,7 @@
                 }
             }
 
-            // We no longer attempt an auto-unmute after 7 seconds. The video remains muted by default.
-            // Show the unmute and play/pause buttons right away
+            // Show unmute and play/pause buttons right away
             unmuteBtn.style.display = "block";
             playPauseBtn.style.display = "block";
 
