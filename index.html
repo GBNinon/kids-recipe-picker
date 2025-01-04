@@ -21,7 +21,8 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            padding-bottom: 100px; /* Reduced to bring intro closer */
+            /* Reduced to bring intro closer */
+            padding-bottom: 40px; 
         }
 
         .waves-container {
@@ -53,7 +54,8 @@
 
         .video-container {
             grid-column: 7 / span 2;
-            margin-top: 50px;
+            /* Reduced this too so there's less space on top */
+            margin-top: 20px;  
             justify-self: end;
             width: 150px;
             height: 150px;
@@ -477,7 +479,7 @@
             showRecipesBtn.addEventListener('click', generatePrompt);
 
             function updatePrompt() {
-                typingBox.value = `I need inspiration for today's kids proof recipes based on: ${selectedFoods.join(', ')}`;
+                typingBox.value = `I need inspiration for today's kids proof recipes based on: ${selectedFoods.join(', ')};`;
             }
 
             async function generatePrompt() {
