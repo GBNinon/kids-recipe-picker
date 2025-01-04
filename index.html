@@ -21,8 +21,8 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            /* Reduced to bring intro closer */
-            padding-bottom: 40px; 
+            /* Reverted to original so there's comfortable space */
+            padding-bottom: 100px;
         }
 
         .waves-container {
@@ -53,12 +53,12 @@
         }
 
         .video-container {
-            grid-column: 7 / span 2;
-            /* Reduced this too so there's less space on top */
-            margin-top: 20px;  
-            justify-self: end;
-            width: 150px;
-            height: 150px;
+            /* Moved from columns 7–8 to 4–5 to shift it left, doubled size */
+            grid-column: 4 / span 2;
+            margin-top: 50px;
+            justify-self: center;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             overflow: hidden;
             position: relative;
