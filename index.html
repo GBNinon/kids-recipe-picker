@@ -203,7 +203,7 @@
             width: 100%;
         }
 
-        /* Wrap textarea and button in one container to share the border */
+        /* One container for the textarea and button, so the button is 'inside' the same box */
         .input-wrapper {
             width: 100%;
             max-width: 600px;
@@ -214,7 +214,6 @@
             background: rgba(255,255,255,0.8);
             display: flex;
             align-items: center;
-            /* This ensures they share the same "box" */
         }
 
         .typing-box {
@@ -257,12 +256,13 @@
             border: 2px solid #000;
             border-radius: 5px;
             font-size: 16px;
-            overflow: auto;
             word-wrap: break-word;
             background: rgba(255,255,255,0.8);
             font-family: 'Karla', sans-serif;
             text-align: left;
-            min-height: 200px; /* Increased for more initial height */
+            min-height: 200px;    /* A bit more initial height */
+            max-height: 400px;    /* So it doesn’t grow too tall */
+            overflow-y: auto;     /* Scrollbar appears if content exceeds 400px */
         }
 
         footer {
@@ -288,7 +288,7 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
-            display: none;
+            display: none; 
         }
 
         .unmute-button:hover, .play-pause-button:hover {
@@ -487,9 +487,7 @@
                 try {
                     const response = await fetch(apiUrl, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ prompt }),
                     });
 
@@ -505,11 +503,11 @@
                 }
             }
 
-            // Show unmute and play/pause buttons right away
+            // Show unmute/play-pause right away
             unmuteBtn.style.display = "block";
             playPauseBtn.style.display = "block";
 
-            // Unmute button toggles sound
+            // Unmute toggles sound
             unmuteBtn.addEventListener('click', () => {
                 videoPlayer.muted = !videoPlayer.muted;
                 unmuteBtn.innerText = videoPlayer.muted ? "UNMUTE" : "MUTE";
@@ -518,7 +516,7 @@
                 });
             });
 
-            // Play/Pause button
+            // Play/Pause toggles playback
             playPauseBtn.addEventListener('click', () => {
                 if (videoPlayer.paused) {
                     videoPlayer.play().then(() => {
