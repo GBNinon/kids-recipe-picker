@@ -72,27 +72,24 @@
         }
 
         main {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    grid-auto-rows: auto; /* Ensure grid rows adjust naturally */
+}
 
-        /* 
-           Making the text more playful and 
-           pulling it upward (negative top margin) so it’s near the video 
-        */
-        .intro-text {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            font-size: 18px;
-            font-weight: normal;
-            line-height: 1.4;
-            grid-column: 2 / span 8;
-            text-align: center;
-            margin-top: -20px; /* Negative margin to bring it up closer to the video */
-            margin-bottom: 30px; 
-        }
+.intro-text {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.2; /* Tighten the spacing */
+    grid-column: 2 / span 8;
+    text-align: center;
+    margin-top: -50px; /* Adjust this to bring it closer */
+    margin-bottom: 30px;
+}
 
         .category-container {
             grid-column: 2 / span 8;
