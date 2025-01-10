@@ -21,7 +21,7 @@
             position: relative;
             width: 100%;
             overflow: hidden;
-            /* Reverted to original so there's comfortable space */
+            /* We leave padding-bottom as is to preserve space around the waves */
             padding-bottom: 100px;
         }
 
@@ -53,9 +53,9 @@
         }
 
         .video-container {
-            /* Reduced margin-top to bring it closer to the text */
+            /* Keep this at 70px per your request */
             grid-column: 4 / span 2;
-            margin-top: 30px; 
+            margin-top: 70px; 
             justify-self: center;
             width: 300px;
             height: 300px;
@@ -79,16 +79,19 @@
             padding: 20px;
         }
 
+        /* 
+           Making the text more playful and 
+           pulling it upward (negative top margin) so it’s near the video 
+        */
         .intro-text {
-            /* Changed font to something more playful + reduced bottom margin */
-            font-family: 'Comic Sans MS', cursive, sans-serif; 
-            font-size: 18px; 
-            font-weight: normal; 
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 18px;
+            font-weight: normal;
             line-height: 1.4;
             grid-column: 2 / span 8;
             text-align: center;
+            margin-top: -20px; /* Negative margin to bring it up closer to the video */
             margin-bottom: 30px; 
-            margin-top: 10px; /* Slight top margin so it's close to the avatar */
         }
 
         .category-container {
@@ -265,9 +268,9 @@
             background: rgba(255,255,255,0.8);
             font-family: 'Karla', sans-serif;
             text-align: left;
-            min-height: 200px;    /* A bit more initial height */
-            max-height: 400px;    /* So it doesn’t grow too tall */
-            overflow-y: auto;     /* Scrollbar appears if content exceeds 400px */
+            min-height: 200px;    
+            max-height: 400px;    
+            overflow-y: auto;     
         }
 
         footer {
@@ -326,7 +329,7 @@
     </header>
 
     <main>
-        <!-- Updated intro text with playful font and quotes -->
+        <!-- Intro text pulled upward via negative margin-top -->
         <p class="intro-text">
             “Hey you, I’m Fooddai—your friendly kids’ recipe buddy! Daily you can pick a few fun ingredient pics together with your little one, and I’ll magically whip up three kid-approved meals your kiddo will love! Ready to give my advice a try? Tap away and let your mealtime magic begin!”
         </p>
