@@ -82,13 +82,13 @@
 
 .intro-text {
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: normal;
     line-height: 1.2; /* Tighten the spacing */
     grid-column: 2 / span 8;
     text-align: center;
-    margin-top: -50px; /* Adjust this to bring it closer */
-    margin-bottom: 30px;
+    margin-top: -70px; /* Adjust this to bring it closer */
+    margin-bottom: 20px;
 }
 
         .category-container {
@@ -328,12 +328,13 @@
     <main>
         <!-- Intro text pulled upward via negative margin-top -->
         <p class="intro-text">
-            “Hey you, I’m Fooddai—your friendly kids’ recipe buddy! Daily you can pick a few fun ingredient pics together with your little one, and I’ll magically whip up three kid-approved meals your kiddo will love! Ready to give my advice a try? Tap away and let your mealtime magic begin!”
+            “Hey you, I’m FooddAI—your kid's food buddy! Just click some favorite ingredient pics below, and I’ll magically whip up three recipes kiddos love! Ready to give my advice a try? Or let your little one try: It's like a game and it will make them super eager to eat the meal. Tap away and let my mealtime magic begin!
+”
         </p>
 
         <!-- Veggies -->
         <div class="category-container">
-            <h2 class="step-title">1. Click on some veggies! <span class="sub-step">I recommend more than one!</span></h2>
+            <h2 class="step-title">1 - Click on some veggies<span class="sub-step">I recommend more than one!</span></h2>
             <div class="button-container">
                 <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt="Asparagus"></div>
                 <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt="Tomatoes"></div>
@@ -365,7 +366,7 @@
 
         <!-- Sides -->
         <div class="category-container">
-            <h2 class="step-title">2. Click on one side dish!!</h2>
+            <h2 class="step-title">2 - Now the side dish?</h2>
             <div class="button-container">
                 <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt="Potatoes"></div>
                 <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt="Rice"></div>
@@ -380,12 +381,12 @@
                 <div class="food-button" data-food="Gnocchi"><img src="images1/Gnocchi.png" alt="Gnocchi"></div>
                 <div class="food-button" data-food="Couscous"><img src="images1/Couscous.png" alt="Couscous"></div>
             </div>
-            <button class="category-done-btn" data-category="sides">That's all for my side</button>
+            <button class="category-done-btn" data-category="sides">Take me to the final step</button>
         </div>
 
         <!-- Protein -->
         <div class="category-container">
-            <h2 class="step-title">3. Keep clicking if you like to add meat or fish or will it be vegan today?</h2>
+            <h2 class="step-title">3. Click to add meat or fish or will it be vegan today?</h2>
             <div class="button-container">
                 <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt="Chicken filet"></div>
                 <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt="Meatballs"></div>
@@ -399,11 +400,11 @@
                 <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lambs rib.png" alt="Lamb chops"></div>
                 <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt="Tofu"></div>
             </div>
-            <button class="category-done-btn" data-category="protein">That's all for my protein</button>
+            <button class="category-done-btn" data-category="protein">That's all for my proteins</button>
         </div>
 
         <div class="option-section">
-            <h2 class="step-title">Or choose a recipe type:</h2>
+            <h2 class="step-title">Optional add-ons:</h2>
             <div class="option-buttons">
                 <button class="option-btn" data-option="fast">FAST</button>
                 <button class="option-btn" data-option="filling">FILLING</button>
@@ -423,7 +424,7 @@
     </main>
 
     <footer>
-        &copy; 2024 Mealify. All rights reserved.
+        &copy; 2024 FooddAI. All rights reserved.
     </footer>
 
     <button class="unmute-button" id="unmuteBtn">UNMUTE</button>
