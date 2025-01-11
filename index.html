@@ -235,7 +235,7 @@
             width: 60px;
             height: 50px;
             font-size: 15px;
-            font-weight:bold;
+            font-weight: bold;
             cursor: pointer;
             background-color: #000;
             color: #fff;
@@ -244,7 +244,7 @@
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            justify-content: center.
+            justify-content: center;
         }
 
         .submit-button:hover {
@@ -262,10 +262,10 @@
             word-wrap: break-word;
             background: rgba(255,255,255,0.8);
             font-family: 'Karla', sans-serif;
-            text-align:left;
+            text-align: left;
             min-height: 200px;
             max-height: 400px;
-            overflow-y: auto.
+            overflow-y: auto;
         }
 
         footer {
@@ -275,7 +275,7 @@
             color: #666;
             font-size: 14px;
             margin-top: 40px;
-            grid-column: 1 / -1.
+            grid-column: 1 / -1;
         }
 
         .unmute-button, .play-pause-button {
@@ -285,21 +285,21 @@
             z-index: 1000;
             padding: 10px;
             background: #000;
-            color: #fff.
-            border: none.
-            border-radius: 5px.
-            cursor: pointer.
-            font-size: 12px.
-            font-weight: bold.
-            display: block.
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            display: block;
         }
 
         .unmute-button:hover, .play-pause-button:hover {
-            background: #333.
+            background: #333;
         }
 
         .play-pause-button {
-            top: 60px.
+            top: 60px;
         }
     </style>
 </head>
@@ -309,7 +309,7 @@
             <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#273036" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
-            <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440,320">
                 <path fill="#FAD378" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
         </div>
@@ -434,6 +434,7 @@
             const optionButtons = document.querySelectorAll('.option-btn');
             const apiUrl = 'https://vercel-host-coral.vercel.app/api/generate';
 
+            // Handle food button clicks
             foodButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const foodItem = button.getAttribute('data-food');
@@ -449,33 +450,38 @@
                 });
             });
 
+            // Handle category done button clicks
             categoryDoneButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
                 });
             });
 
+            // Handle option button clicks
             optionButtons.forEach(optBtn => {
                 optBtn.addEventListener('click', () => {
-                    const option is optBtn.getAttribute('data-option');
+                    const option = optBtn.getAttribute('data-option'); // Corrected
                     if (!selectedFoods.includes(option)) {
                         selectedFoods.push(option);
-                        optBtn.classList add('selected');
+                        optBtn.classList.add('selected'); // Corrected
                     } else {
                         const index = selectedFoods.indexOf(option);
                         selectedFoods.splice(index, 1);
-                        optBtn.classList remove('selected');
+                        optBtn.classList.remove('selected'); // Corrected
                     }
                     updatePrompt();
                 });
             });
 
+            // Handle show recipes button click
             showRecipesBtn.addEventListener('click', generatePrompt);
 
+            // Update the prompt based on selected foods
             function updatePrompt() {
                 typingBox.value = `Give me today's kids proof recipes based on: ${selectedFoods.join(', ')};`;
             }
 
+            // Generate prompt and fetch recipes from API
             async function generatePrompt() {
                 const prompt = typingBox.value.trim() +
                     " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside chosen. Of course feel free to add herbs or basic ingredients like salt, pepper, etc.";
@@ -499,11 +505,11 @@
                 }
             }
 
-            // Show unmute/play-pause right away
+            // Display the buttons
             unmuteBtn.style.display = "block";
             playPauseBtn.style.display = "block";
 
-            // Unmute toggles sound
+            // Unmute button functionality
             unmuteBtn.addEventListener('click', () => {
                 videoPlayer.muted = !videoPlayer.muted;
                 unmuteBtn.innerText = videoPlayer.muted ? "UNMUTE" : "MUTE";
@@ -512,7 +518,7 @@
                 });
             });
 
-            // Play/Pause toggles playback
+            // Play/Pause button functionality
             playPauseBtn.addEventListener('click', () => {
                 if (videoPlayer.paused) {
                     videoPlayer.play().then(() => {
