@@ -244,7 +244,7 @@
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: center.
         }
 
         .submit-button:hover {
@@ -265,7 +265,7 @@
             text-align:left;
             min-height: 200px;
             max-height: 400px;
-            overflow-y: auto;
+            overflow-y: auto.
         }
 
         footer {
@@ -275,7 +275,7 @@
             color: #666;
             font-size: 14px;
             margin-top: 40px;
-            grid-column: 1 / -1;
+            grid-column: 1 / -1.
         }
 
         .unmute-button, .play-pause-button {
@@ -285,21 +285,21 @@
             z-index: 1000;
             padding: 10px;
             background: #000;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            display: block;
+            color: #fff.
+            border: none.
+            border-radius: 5px.
+            cursor: pointer.
+            font-size: 12px.
+            font-weight: bold.
+            display: block.
         }
 
         .unmute-button:hover, .play-pause-button:hover {
-            background: #333;
+            background: #333.
         }
 
         .play-pause-button {
-            top: 60px;
+            top: 60px.
         }
     </style>
 </head>
@@ -457,14 +457,14 @@
 
             optionButtons.forEach(optBtn => {
                 optBtn.addEventListener('click', () => {
-                    const option = optBtn.getAttribute('data-option');
+                    const option is optBtn.getAttribute('data-option');
                     if (!selectedFoods.includes(option)) {
                         selectedFoods.push(option);
-                        optBtn.classList.add('selected');
+                        optBtn.classList add('selected');
                     } else {
                         const index = selectedFoods.indexOf(option);
                         selectedFoods.splice(index, 1);
-                        optBtn.classList.remove('selected');
+                        optBtn.classList remove('selected');
                     }
                     updatePrompt();
                 });
@@ -507,7 +507,7 @@
             unmuteBtn.addEventListener('click', () => {
                 videoPlayer.muted = !videoPlayer.muted;
                 unmuteBtn.innerText = videoPlayer.muted ? "UNMUTE" : "MUTE";
-                videoPlayer play().catch(() => {
+                videoPlayer.play().catch(() => {
                     console.log("Play with sound blocked even after user interaction.");
                 });
             });
