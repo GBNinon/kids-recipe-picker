@@ -73,14 +73,15 @@
             object-fit: cover;
         }
 
+        /* Increased the size from 10% to 20% and increased z-index */
         .play-pause-avatar {
             position: absolute;
             bottom: 10%;
             right: 10%;
-            width: 10%;
+            width: 20%;
             height: auto;
             cursor: pointer;
-            z-index: 4;
+            z-index: 5;
         }
 
         .play-pause-avatar:hover {
@@ -431,14 +432,15 @@
         &copy; 2024 FooddAI. All rights reserved.
     </footer>
 
+    <!-- Only the unmute button remains; we removed the top-right play/pause button -->
     <button class="unmute-button" id="unmuteBtn">UNMUTE</button>
-    <button class="play-pause-button" id="playPauseBtn">PLAY/PAUSE</button>
 
     <script>
         const selectedFoods = [];
         const videoPlayer = document.getElementById('videoPlayer');
         const unmuteBtn = document.getElementById('unmuteBtn');
-        const playPauseBtn = document.getElementById('playPauseBtn');
+        // Get reference to the play/pause avatar image
+        const playPauseAvatar = document.getElementById('playPauseAvatar');
 
         document.addEventListener('DOMContentLoaded', () => {
             const typingBox = document.getElementById('typingBox');
@@ -529,21 +531,20 @@
                 });
             });
 
-            // Play/Pause button functionality
-            playPauseBtn.addEventListener('click', () => {
+            // New Play/Pause avatar functionality
+            playPauseAvatar.addEventListener('click', () => {
                 if (videoPlayer.paused) {
                     videoPlayer.play().then(() => {
-                        playPauseBtn.innerText = "PAUSE";
+                        console.log("Video playing");
                     }).catch(() => {
                         console.log("Play attempt failed.");
                     });
                 } else {
                     videoPlayer.pause();
-                    playPauseBtn.innerText = "PLAY";
+                    console.log("Video paused");
                 }
             });
         });
     </script>
 </body>
 </html>
-
