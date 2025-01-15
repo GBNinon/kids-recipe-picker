@@ -276,45 +276,45 @@
         }
 
         .input-wrapper {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    position: relative;
-    border: 2px solid #000;
-    border-radius: 5px;
-    background: rgba(255,255,255,0.8);
-    display: flex;
-    align-items: center;
-    padding: 0; /* Remove extra padding */
-}
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            padding: 0; /* Remove extra padding */
+        }
 
-.typing-box {
-    flex: 1;
-    height: 50px;
-    padding: 10px;
-    border: none;
-    font-size: 16px;
-    background: transparent;
-    overflow: auto;
-    font-family: 'Karla', sans-serif;
-}
+        .typing-box {
+            flex: 1;
+            height: 50px;
+            padding: 10px;
+            border: none;
+            font-size: 16px;
+            background: transparent;
+            overflow: auto;
+            font-family: 'Karla', sans-serif;
+        }
 
-.submit-button {
-    width: auto; /* Make the button size fit its content */
-    height: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 0 5px 5px 0; /* Ensure only the right corners are rounded */
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 15px; /* Add some padding for better alignment */
-    margin: 0; /* Remove margin to align with the wrapper */
+        .submit-button {
+            width: auto; /* Make the button size fit its content */
+            height: 50px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0; /* Ensure only the right corners are rounded */
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px; /* Add some padding for better alignment */
+            margin: 0; /* Remove margin to align with the wrapper */
         }
 
         .submit-button:hover {
@@ -408,24 +408,25 @@
             margin-top: 40px;
             grid-column: 1 / -1;
         }
-.start-over-btn {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #9a7baa; /* Purple background */
-    color: #fff; /* White text */
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: background-color 0.3s;
-}
 
-.start-over-btn:hover {
-    background-color: #7f6595; /* Slightly darker purple on hover */
-}
+        .start-over-btn {
+            margin: 15px auto;
+            padding: 10px 20px;
+            background-color: #9a7baa; /* Purple background */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+            display: block; /* Center the button */
+        }
 
+        .start-over-btn:hover {
+            background-color: #7f6595; /* Slightly darker purple on hover */
+        }
     </style>
 </head>
 <body>
@@ -552,7 +553,6 @@
                 <button class="submit-button" id="showRecipesBtn">SHOW MY RECIPES</button>
             </div>
             <div id="response" class="response-box">
-                <button id="startOverBtn" class="start-over-btn">START OVER</button>
                 <!-- Loader Overlay -->
                 <div class="loader-overlay" id="loader">
                     <div class="dots-wrapper">
@@ -565,6 +565,8 @@
                 <!-- Initial Message -->
                 Your recipes will appear here...
             </div>
+            <!-- Start Over Button -->
+            <button id="startOverBtn" class="start-over-btn">START OVER</button>
         </div>
     </main>
 
@@ -588,14 +590,14 @@
         // Elements for loader
         const loader = document.getElementById('loader');
         const responseDiv = document.getElementById('response');
-        // Scroll to top when "Start Over" is clicked
-document.addEventListener('DOMContentLoaded', () => {
-    const startOverBtn = document.getElementById('startOverBtn');
-    startOverBtn.addEventListener('click', () => {
-        document.querySelector('.category-container').scrollIntoView({ behavior: 'smooth' });
-    });
-});
+        const startOverBtn = document.getElementById('startOverBtn');
 
+        // Scroll to top when "Start Over" is clicked
+        document.addEventListener('DOMContentLoaded', () => {
+            startOverBtn.addEventListener('click', () => {
+                resetAll();
+            });
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             const typingBox = document.getElementById('typingBox');
@@ -663,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show loader
                 loader.style.display = 'flex';
                 // Optionally, clear previous response
-                // responseDiv.innerHTML = ''; 
+                responseDiv.innerHTML = ''; 
 
                 const prompt = typingBox.value.trim() +
                     " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside chosen. Of course feel free to add herbs or basic ingredients like salt, pepper, etc.";
@@ -682,6 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const data = await response.json();
                         const aiResponse = data.choices[0]?.message?.content.trim() || 'No response generated.';
                         responseDiv.innerHTML = `<strong>Recipe Suggestions:</strong><br>${aiResponse.replace(/\n/g, '<br>')}`;
+                        startOverBtn.style.display = 'block'; // Show the Start Over button
                     } else {
                         throw new Error(`Server Error: ${response.status}`);
                     }
@@ -689,6 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Hide loader if error occurs
                     loader.style.display = 'none';
                     responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+                    startOverBtn.style.display = 'block'; // Show the Start Over button
                 }
             }
 
@@ -714,7 +718,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log("Video paused");
                 }
             });
+
+            // Initially hide the Start Over button
+            startOverBtn.style.display = 'none';
         });
+
+        // Function to reset all selections and prompts
+        function resetAll() {
+            const typingBox = document.getElementById('typingBox');
+            const responseDiv = document.getElementById('response');
+            const loader = document.getElementById('loader');
+            const foodButtons = document.querySelectorAll('.food-button');
+            const optionButtons = document.querySelectorAll('.option-btn');
+
+            // Clear selected foods
+            selectedFoods.length = 0;
+
+            // Reset all selected buttons
+            foodButtons.forEach(button => button.classList.remove('selected'));
+            optionButtons.forEach(button => button.classList.remove('selected'));
+
+            // Reset the typing box and response field
+            typingBox.value = "I need inspiration for today's kids-proof recipes based on:";
+            responseDiv.innerHTML = "Your recipes will appear here...";
+
+            // Hide loader if visible
+            loader.style.display = 'none';
+
+            // Hide the Start Over button
+            startOverBtn.style.display = 'none';
+
+            // Scroll to the top
+            document.querySelector('.category-container').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
