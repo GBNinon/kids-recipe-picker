@@ -408,6 +408,24 @@
             margin-top: 40px;
             grid-column: 1 / -1;
         }
+.start-over-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #9a7baa; /* Purple background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.start-over-btn:hover {
+    background-color: #7f6595; /* Slightly darker purple on hover */
+}
+
     </style>
 </head>
 <body>
@@ -534,6 +552,7 @@
                 <button class="submit-button" id="showRecipesBtn">SHOW MY RECIPES</button>
             </div>
             <div id="response" class="response-box">
+                <button id="startOverBtn" class="start-over-btn">START OVER</button>
                 <!-- Loader Overlay -->
                 <div class="loader-overlay" id="loader">
                     <div class="dots-wrapper">
@@ -569,6 +588,14 @@
         // Elements for loader
         const loader = document.getElementById('loader');
         const responseDiv = document.getElementById('response');
+        // Scroll to top when "Start Over" is clicked
+document.addEventListener('DOMContentLoaded', () => {
+    const startOverBtn = document.getElementById('startOverBtn');
+    startOverBtn.addEventListener('click', () => {
+        document.querySelector('.category-container').scrollIntoView({ behavior: 'smooth' });
+    });
+});
+
 
         document.addEventListener('DOMContentLoaded', () => {
             const typingBox = document.getElementById('typingBox');
