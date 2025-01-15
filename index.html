@@ -73,6 +73,39 @@
             object-fit: cover;
         }
 
+        .play-pause-avatar {
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            width: 10%;
+            height: auto;
+            cursor: pointer;
+            z-index: 4;
+        }
+
+        .play-pause-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .unmute-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .unmute-button:hover {
+            background: #333;
+        }
+
         main {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
@@ -202,19 +235,19 @@
         }
 
         .input-output-container {
-            grid-column: 2 / span 8; /* Adjusted span for more space on the right */
+            grid-column: 2 / span 8;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 20px;
-            max-width: 700px; /* Increased max-width */
+            max-width: 700px;
             margin: 20px auto;
             width: 100%;
         }
 
         .input-wrapper {
             width: 100%;
-            max-width: 700px; /* Increased to match container */
+            max-width: 700px;
             margin: 0 auto;
             position: relative;
             border: 2px solid #000;
@@ -222,7 +255,7 @@
             background: rgba(255,255,255,0.8);
             display: flex;
             align-items: center;
-            padding-right: 5px; /* Added slight padding for better alignment */
+            padding-right: 5px;
         }
 
         .typing-box {
@@ -234,11 +267,10 @@
             background: transparent;
             overflow: auto;
             font-family: 'Karla', sans-serif;
-            /* box-sizing is already handled globally */
         }
 
         .submit-button {
-            width: 80px; /* Increased width for better alignment */
+            width: 80px;
             height: 50px;
             font-size: 15px;
             font-weight: bold;
@@ -251,7 +283,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Removed any unnecessary margins */
         }
 
         .submit-button:hover {
@@ -260,7 +291,7 @@
 
         .response-box {
             width: 100%;
-            max-width: 700px; /* Increased to match container */
+            max-width: 700px;
             margin: 20px auto 0 auto;
             padding: 10px;
             border: 2px solid #000;
@@ -284,30 +315,6 @@
             margin-top: 40px;
             grid-column: 1 / -1;
         }
-
-        .unmute-button, .play-pause-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            padding: 10px;
-            background: #000;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            display: block;
-        }
-
-        .unmute-button:hover, .play-pause-button:hover {
-            background: #333;
-        }
-
-        .play-pause-button {
-            top: 60px;
-        }
     </style>
 </head>
 <body>
@@ -325,6 +332,7 @@
             <video class="avatar-video" id="videoPlayer" autoplay playsinline loop muted>
                 <source src="images1/avatar fooddai.mp4" type="video/mp4">
             </video>
+            <img class="play-pause-avatar" id="playPauseAvatar" src="images1/Play pause button.png" alt="Play/Pause">
         </div>
     </header>
 
@@ -353,7 +361,7 @@
                 <div class="food-button" data-food="Lentils"><img src="images1/Lentils.png" alt="Lentils"></div>
                 <div class="food-button" data-food="Mushrooms"><img src="images1/Mushrooms.png" alt="Mushrooms"></div>
                 <div class="food-button" data-food="Peas"><img src="images1/Peas.png" alt="Peas"></div>
-                <div class="food-button" data-food="Pumkin"><img src="images1/Pumkin.png" alt="Pumkin"></div>
+                <div class="food-button" data-food="Pumpkin"><img src="images1/Pumpkin.png" alt="Pumpkin"></div>
                 <div class="food-button" data-food="Spinach"><img src="images1/Spinach.png" alt="Spinach"></div>
                 <div class="food-button" data-food="Corn"><img src="images1/Corn.png" alt="Corn"></div>
                 <div class="food-button" data-food="Endives"><img src="images1/Endives.png" alt="Endives"></div>
@@ -393,9 +401,9 @@
                 <div class="food-button" data-food="Tuna"><img src="images1/Tuna.png" alt="Tuna"></div>
                 <div class="food-button" data-food="Bacon"><img src="images1/Bacon.png" alt="Bacon"></div>
                 <div class="food-button" data-food="Steak"><img src="images1/Steak.png" alt="Steak"></div>
-                <div class="food-button" data-food="Porc loin"><img src="images1/Porc loin.png" alt="Porc loin"></div>
+                <div class="food-button" data-food="Pork loin"><img src="images1/Pork loin.png" alt="Pork loin"></div>
                 <div class="food-button" data-food="Cod filet"><img src="images1/Cod filet.png" alt="Cod filet"></div>
-                <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lambs rib.png" alt="Lamb chops"></div>
+                <div class="food-button" data-food="Lamb chops or lamb ribs"><img src="images1/Lamb chops or lamb ribs.png" alt="Lamb chops"></div>
                 <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt="Tofu"></div>
             </div>
         </div>
@@ -412,7 +420,7 @@
 
         <div class="input-output-container">
             <div class="input-wrapper">
-                <textarea class="typing-box" id="typingBox" readonly>I need inspiration for today's kids proof recipes based on:</textarea>
+                <textarea class="typing-box" id="typingBox" readonly>I need inspiration for today's kids-proof recipes based on:</textarea>
                 <button class="submit-button" id="showRecipesBtn">SHOW MY RECIPES</button>
             </div>
             <div id="response" class="response-box">Your recipes will appear here...</div>
@@ -467,14 +475,14 @@
             // Handle option button clicks
             optionButtons.forEach(optBtn => {
                 optBtn.addEventListener('click', () => {
-                    const option = optBtn.getAttribute('data-option'); // Corrected
+                    const option = optBtn.getAttribute('data-option');
                     if (!selectedFoods.includes(option)) {
                         selectedFoods.push(option);
-                        optBtn.classList.add('selected'); // Corrected
+                        optBtn.classList.add('selected');
                     } else {
                         const index = selectedFoods.indexOf(option);
                         selectedFoods.splice(index, 1);
-                        optBtn.classList.remove('selected'); // Corrected
+                        optBtn.classList.remove('selected');
                     }
                     updatePrompt();
                 });
@@ -485,7 +493,7 @@
 
             // Update the prompt based on selected foods
             function updatePrompt() {
-                typingBox.value = `Give me today's kids proof recipes based on: ${selectedFoods.join(', ')};`;
+                typingBox.value = `Give me today's kids-proof recipes based on: ${selectedFoods.join(', ')};`;
             }
 
             // Generate prompt and fetch recipes from API
@@ -494,7 +502,7 @@
                     " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside chosen. Of course feel free to add herbs or basic ingredients like salt, pepper, etc.";
 
                 try {
-                    const response = await fetch('https://vercel-host-coral.vercel.app/api/generate', {
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ prompt }),
@@ -511,10 +519,6 @@
                     responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
                 }
             }
-
-            // Display the buttons
-            unmuteBtn.style.display = "block";
-            playPauseBtn.style.display = "block";
 
             // Unmute button functionality
             unmuteBtn.addEventListener('click', () => {
@@ -542,3 +546,4 @@
     </script>
 </body>
 </html>
+
