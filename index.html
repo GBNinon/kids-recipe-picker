@@ -631,15 +631,10 @@
 
             // Generate prompt and fetch recipes from API
             async function generatePrompt() {
-                // Disable the button to prevent multiple clicks
-                showRecipesBtn.disabled = true;
-                showRecipesBtn.style.cursor = 'not-allowed';
-                showRecipesBtn.style.opacity = '0.6';
-
                 // Show loader
                 loader.style.display = 'flex';
                 // Optionally, clear previous response
-                responseDiv.innerHTML = ''; 
+                // responseDiv.innerHTML = ''; 
 
                 const prompt = typingBox.value.trim() +
                     " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside chosen. Of course feel free to add herbs or basic ingredients like salt, pepper, etc.";
@@ -664,12 +659,7 @@
                 } catch (error) {
                     // Hide loader if error occurs
                     loader.style.display = 'none';
-                    responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch recipes at this time. Please try again later or check your internet connection.`;
-                } finally {
-                    // Re-enable the button
-                    showRecipesBtn.disabled = false;
-                    showRecipesBtn.style.cursor = 'pointer';
-                    showRecipesBtn.style.opacity = '1';
+                    responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
                 }
             }
 
