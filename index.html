@@ -469,7 +469,7 @@
                 <div class="food-button" data-food="Lentils"><img src="images1/Lentils.png" alt="Lentils"></div>
                 <div class="food-button" data-food="Mushrooms"><img src="images1/Mushrooms.png" alt="Mushrooms"></div>
                 <div class="food-button" data-food="Peas"><img src="images1/Peas.png" alt="Peas"></div>
-                <div class="food-button" data-food="Pumpkin"><img src="images1/Pumpkin.png" alt="Pumpkin"></div>
+                <div class="food-button" data-food="Pumpkin"><img src="images1/Pumkin.png" alt="Pumpkin"></div>
                 <div class="food-button" data-food="Spinach"><img src="images1/Spinach.png" alt="Spinach"></div>
                 <div class="food-button" data-food="Corn"><img src="images1/Corn.png" alt="Corn"></div>
                 <div class="food-button" data-food="Endives"><img src="images1/Endives.png" alt="Endives"></div>
@@ -509,9 +509,9 @@
                 <div class="food-button" data-food="Tuna"><img src="images1/Tuna.png" alt="Tuna"></div>
                 <div class="food-button" data-food="Bacon"><img src="images1/Bacon.png" alt="Bacon"></div>
                 <div class="food-button" data-food="Steak"><img src="images1/Steak.png" alt="Steak"></div>
-                <div class="food-button" data-food="Pork loin"><img src="images1/Pork loin.png" alt="Pork loin"></div>
+                <div class="food-button" data-food="Pork loin"><img src="images1/Porc loin.png" alt="Pork loin"></div>
                 <div class="food-button" data-food="Cod filet"><img src="images1/Cod filet.png" alt="Cod filet"></div>
-                <div class="food-button" data-food="Lamb chops or lamb ribs"><img src="images1/Lamb chops or lamb ribs.png" alt="Lamb chops"></div>
+                <div class="food-button" data-food="Lamb chops or lambs rib"><img src="images1/Lamb chops or lamb ribs.png" alt="Lamb chops"></div>
                 <div class="food-button" data-food="Tofu"><img src="images1/Tofu.png" alt="Tofu"></div>
             </div>
         </div>
@@ -631,10 +631,15 @@
 
             // Generate prompt and fetch recipes from API
             async function generatePrompt() {
+                // Disable the button to prevent multiple clicks
+                showRecipesBtn.disabled = true;
+                showRecipesBtn.style.cursor = 'not-allowed';
+                showRecipesBtn.style.opacity = '0.6';
+
                 // Show loader
                 loader.style.display = 'flex';
                 // Optionally, clear previous response
-                // responseDiv.innerHTML = ''; 
+                responseDiv.innerHTML = ''; 
 
                 const prompt = typingBox.value.trim() +
                     " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside chosen. Of course feel free to add herbs or basic ingredients like salt, pepper, etc.";
@@ -659,7 +664,12 @@
                 } catch (error) {
                     // Hide loader if error occurs
                     loader.style.display = 'none';
-                    responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch response. ${error.message}`;
+                    responseDiv.innerHTML = `<strong>Error:</strong> Unable to fetch recipes at this time. Please try again later or check your internet connection.`;
+                } finally {
+                    // Re-enable the button
+                    showRecipesBtn.disabled = false;
+                    showRecipesBtn.style.cursor = 'pointer';
+                    showRecipesBtn.style.opacity = '1';
                 }
             }
 
