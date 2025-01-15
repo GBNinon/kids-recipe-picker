@@ -55,16 +55,29 @@
             z-index: 1;
         }
 
-        .video-container {
+        /* ============================= */
+        /* THE NEW WRAPPER + CIRCLE SETUP */
+        /* ============================= */
+
+        /* 1) A wrapper that does NOT hide overflow */
+        .video-wrapper {
+            /* We can keep the same grid positioning you had before */
             grid-column: 4 / span 2;
             margin-top: 70px;
             justify-self: center;
+            /* So the button can be placed absolutely here */
+            position: relative;
+            display: inline-block; /* Ensures the wrapper fits tightly around the circle */
+            z-index: 3;           /* Enough to stay above waves */
+        }
+
+        /* 2) Inside wrapper, we have a circle container that DOES hide overflow */
+        .circle-video {
             width: 300px;
             height: 300px;
             border-radius: 50%;
             overflow: hidden;
             position: relative;
-            z-index: 3;
         }
 
         .avatar-video {
@@ -73,21 +86,21 @@
             object-fit: cover;
         }
 
-        /* Position the play/pause avatar near the edge (right: 0) */
+        /* 3) The play/pause image that overlaps the circle edge */
         .play-pause-avatar {
             position: absolute;
-            bottom: 10%;
-            right: 0;
-            width: 20%;
-            height: auto;
+            z-index: 5; 
             cursor: pointer;
-            z-index: 5;
+            width: 60px;  /* Adjust as you like; or use e.g. 20% of .circle-video */
+            bottom: 0;    
+            right: -15px; /* Negative to push part outside the circle */
         }
 
         .play-pause-avatar:hover {
             transform: scale(1.1);
         }
 
+        /* Unmute button in the top-right corner (unchanged) */
         .unmute-button {
             position: fixed;
             top: 20px;
@@ -106,6 +119,10 @@
         .unmute-button:hover {
             background: #333;
         }
+
+        /* ============================= */
+        /* MAIN LAYOUT & CONTENT STYLES  */
+        /* ============================= */
 
         main {
             display: grid;
@@ -320,6 +337,7 @@
 </head>
 <body>
     <header class="header-grid">
+        <!-- WAVES -->
         <div class="waves-container">
             <svg class="dark-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440,320">
                 <path fill="#273036" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
@@ -328,12 +346,20 @@
                 <path fill="#FAD378" d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z"></path>
             </svg>
         </div>
-
-        <div class="video-container">
-            <video class="avatar-video" id="videoPlayer" autoplay playsinline loop muted>
-                <source src="images1/avatar fooddai.mp4" type="video/mp4">
-            </video>
-            <img class="play-pause-avatar" id="playPauseAvatar" src="images1/Play pause button.png" alt="Play/Pause">
+        
+        <!-- NEW WRAPPER + CIRCLE VIDEO + OVERLAPPING BUTTON -->
+        <div class="video-wrapper">
+            <div class="circle-video">
+                <video class="avatar-video" id="videoPlayer" autoplay playsinline loop muted>
+                    <source src="images1/avatar fooddai.mp4" type="video/mp4">
+                </video>
+            </div>
+            <img 
+                class="play-pause-avatar" 
+                id="playPauseAvatar" 
+                src="images1/Play pause button.png" 
+                alt="Play/Pause"
+            >
         </div>
     </header>
 
@@ -432,14 +458,13 @@
         &copy; 2024 FooddAI. All rights reserved.
     </footer>
 
-    <!-- Only the unmute button remains; we removed the top-right play/pause button -->
+    <!-- Unmute button remains, we handle play/pause via image inside .video-wrapper -->
     <button class="unmute-button" id="unmuteBtn">UNMUTE</button>
 
     <script>
         const selectedFoods = [];
         const videoPlayer = document.getElementById('videoPlayer');
         const unmuteBtn = document.getElementById('unmuteBtn');
-        // Reference to the play/pause avatar image
         const playPauseAvatar = document.getElementById('playPauseAvatar');
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -467,14 +492,14 @@
                 });
             });
 
-            // Handle category done button clicks
+            // Category done buttons
             categoryDoneButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
                 });
             });
 
-            // Handle option button clicks
+            // Option buttons
             optionButtons.forEach(optBtn => {
                 optBtn.addEventListener('click', () => {
                     const option = optBtn.getAttribute('data-option');
@@ -490,15 +515,15 @@
                 });
             });
 
-            // Handle show recipes button click
+            // Show recipes
             showRecipesBtn.addEventListener('click', generatePrompt);
 
-            // Update the prompt based on selected foods
+            // Update the prompt
             function updatePrompt() {
                 typingBox.value = `Give me today's kids-proof recipes based on: ${selectedFoods.join(', ')};`;
             }
 
-            // Generate prompt and fetch recipes from API
+            // Generate prompt and fetch from API
             async function generatePrompt() {
                 const prompt = typingBox.value.trim() +
                     " Please show me 3 recipes that are kid-proof and creative looks in a way that most children would love to eat it. With only their favorite ingredients inside chosen. Of course feel free to add herbs or basic ingredients like salt, pepper, etc.";
@@ -522,7 +547,7 @@
                 }
             }
 
-            // Unmute button functionality
+            // Unmute button
             unmuteBtn.addEventListener('click', () => {
                 videoPlayer.muted = !videoPlayer.muted;
                 unmuteBtn.innerText = videoPlayer.muted ? "UNMUTE" : "MUTE";
@@ -531,7 +556,7 @@
                 });
             });
 
-            // Play/Pause avatar functionality
+            // Play/Pause avatar
             playPauseAvatar.addEventListener('click', () => {
                 if (videoPlayer.paused) {
                     videoPlayer.play().then(() => {
