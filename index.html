@@ -276,43 +276,45 @@
         }
 
         .input-wrapper {
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            border: 2px solid #000;
-            border-radius: 5px;
-            background: rgba(255,255,255,0.8);
-            display: flex;
-            align-items: center;
-            padding-right: 5px;
-        }
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    padding: 0; /* Remove extra padding */
+}
 
-        .typing-box {
-            flex: 1;
-            height: 50px;
-            padding: 10px;
-            border: none;
-            font-size: 16px;
-            background: transparent;
-            overflow: auto;
-            font-family: 'Karla', sans-serif;
-        }
+.typing-box {
+    flex: 1;
+    height: 50px;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    background: transparent;
+    overflow: auto;
+    font-family: 'Karla', sans-serif;
+}
 
-        .submit-button {
-            width: 80px;
-            height: 50px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            background-color: #000;
-            color: #fff;
-            border: none;
-            border-radius: 0 5px 5px 0;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+.submit-button {
+    width: auto; /* Make the button size fit its content */
+    height: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0; /* Ensure only the right corners are rounded */
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px; /* Add some padding for better alignment */
+    margin: 0; /* Remove margin to align with the wrapper */
         }
 
         .submit-button:hover {
