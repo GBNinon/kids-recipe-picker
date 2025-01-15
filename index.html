@@ -73,11 +73,11 @@
             object-fit: cover;
         }
 
-        /* Increased the size from 10% to 20% and increased z-index */
+        /* Position the play/pause avatar near the edge (right: 0) */
         .play-pause-avatar {
             position: absolute;
             bottom: 10%;
-            right: 10%;
+            right: 0;
             width: 20%;
             height: auto;
             cursor: pointer;
@@ -439,7 +439,7 @@
         const selectedFoods = [];
         const videoPlayer = document.getElementById('videoPlayer');
         const unmuteBtn = document.getElementById('unmuteBtn');
-        // Get reference to the play/pause avatar image
+        // Reference to the play/pause avatar image
         const playPauseAvatar = document.getElementById('playPauseAvatar');
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -531,7 +531,7 @@
                 });
             });
 
-            // New Play/Pause avatar functionality
+            // Play/Pause avatar functionality
             playPauseAvatar.addEventListener('click', () => {
                 if (videoPlayer.paused) {
                     videoPlayer.play().then(() => {
