@@ -63,11 +63,9 @@
         /* VIDEO SECTION */
         /* ============================= */
         .video-wrapper {
-            /* Centering as before */
             grid-column: 4 / span 2;
             margin-top: 70px;
             justify-self: center;
-
             position: relative;
             display: inline-block;
             z-index: 3; 
@@ -159,22 +157,17 @@
 
         .category-container {
             grid-column: 2 / span 8;
-            margin: 20px auto;
+            /* reduced spacing between sections from 20px to 10px */
+            margin: 10px auto;
             max-width: 600px;
             width: 100%;
             text-align: center;
         }
 
+        /* Simplified titles */
         .step-title {
             font-size: 20px;
             margin-bottom: 10px;
-        }
-
-        .sub-step {
-            font-size: 14px;
-            color: #9c5c9c;
-            margin-top: 5px;
-            display: block;
         }
 
         .button-container {
@@ -191,11 +184,13 @@
             }
         }
 
+        /* Food-button with dark overlay & corner radius 10px */
         .food-button {
+            position: relative;
             cursor: pointer;
             width: 100%;
-            background: #fff;
-            border-radius: 5px;
+            border-radius: 10px;
+            overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -203,7 +198,29 @@
             width: 100%;
             height: auto;
             object-fit: cover;
-            border-radius: 5px;
+            /* corner rounding is on the parent, so no separate border-radius needed */
+        }
+
+        /* The dark overlay by default */
+        .food-button::before {
+            content: "";
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            background-color: rgba(0,0,0,0.4);
+            transition: background-color 0.2s;
+        }
+
+        /* Lighten on hover */
+        .food-button:hover::before {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        /* Lighten (stay that way) when selected */
+        .food-button.selected::before {
+            background-color: rgba(0,0,0,0.1);
         }
 
         .food-button:hover {
@@ -211,30 +228,32 @@
             box-shadow: 0 0 8px rgba(0,0,0,0.2);
         }
 
-        .food-button.selected {
-            border: 2px solid #FFC8F3;
-        }
-
-        .category-done-btn {
-            display: inline-block;
-            margin: 10px auto 0 auto;
-            background: #333;
+        /* Option buttons, also round corners to match app look */
+        .option-btn {
+            background: #000;
             color: #fff;
-            padding: 8px 15px;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 10px;
             font-size: 14px;
+            cursor: pointer;
             font-weight: bold;
+            text-align: center;
         }
 
-        .category-done-btn:hover {
+        .option-btn:hover {
             background: #555;
+        }
+
+        /* Remove the category-done-btn buttons from view 
+           (since we no longer need "Done" or "Take me to final step") */
+        .category-done-btn {
+            display: none;
         }
 
         .option-section {
             grid-column: 2 / span 8;
-            margin: 20px auto;
+            margin: 10px auto; /* smaller margin */
             text-align: center;
             max-width: 600px;
             width: 100%;
@@ -248,22 +267,7 @@
             margin-top: 10px;
         }
 
-        .option-btn {
-            background: #000;
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .option-btn:hover {
-            background: #555;
-        }
-
+        /* Input & Output containers with matching corner radius */
         .input-output-container {
             grid-column: 2 / span 8;
             display: flex;
@@ -275,14 +279,13 @@
             width: 100%;
         }
 
-        /* Updated to position the button more neatly 'inside' the input */
         .input-wrapper {
             width: 100%;
             max-width: 700px;
             margin: 0 auto;
             position: relative;
             border: 2px solid #000;
-            border-radius: 5px;
+            border-radius: 10px;
             background: rgba(255,255,255,0.8);
         }
 
@@ -298,20 +301,21 @@
             resize: none;
         }
 
-        /* The button is now absolutely positioned in the top-right corner of .input-wrapper */
+        /* The main CTA button with a slightly smaller default width
+           and the same radius */
         .submit-button {
             position: absolute;
             top: 0;
             right: 0;
             bottom: 0;
-            width: 120px;
+            width: 100px; /* slightly narrower default */
             font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             background-color: #000;
             color: #fff;
             border: none;
-            border-radius: 0 3px 3px 0;
+            border-radius: 0 10px 10px 0;
             text-transform: uppercase;
             display: flex;
             align-items: center;
@@ -319,18 +323,27 @@
             transition: background 0.2s;
         }
 
+        /* Make the button smaller / more responsive on narrower screens */
+        @media (max-width: 480px) {
+            .submit-button {
+                width: auto;
+                font-size: 13px;
+                padding: 0 10px;
+            }
+        }
+
         .submit-button:hover {
             background: #555;
         }
 
         .response-box {
-            position: relative; /* To position the loader absolutely within */
+            position: relative; /* For the loader overlay */
             width: 100%;
             max-width: 700px;
             margin: 20px auto 0 auto;
             padding: 10px;
             border: 2px solid #000;
-            border-radius: 5px;
+            border-radius: 10px;
             font-size: 16px;
             word-wrap: break-word;
             background: rgba(255,255,255,0.8);
@@ -339,11 +352,6 @@
             min-height: 200px;
             max-height: 400px;
             overflow-y: auto;
-        }
-
-        /* Response Content */
-        .response-content {
-            /* Padding or styling if needed */
         }
 
         /* LOADER OVERLAY INSIDE RESPONSE BOX */
@@ -358,7 +366,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 5px;
+            border-radius: 10px;
             z-index: 10;
             display: none; /* Hidden by default */
         }
@@ -381,11 +389,9 @@
         .dot:nth-child(1) {
             animation-delay: 0s;
         }
-
         .dot:nth-child(2) {
             animation-delay: 0.2s;
         }
-
         .dot:nth-child(3) {
             animation-delay: 0.4s;
         }
@@ -422,7 +428,7 @@
             background-color: #9a7baa; /* Purple background */
             color: #fff; /* White text */
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
@@ -446,7 +452,7 @@
 
             <!-- Second wave remains orange (#FAD378) -->
             <svg class="yellow-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440,320">
-                <path d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800=0,720=0C640=0,560=0,480=0,400=0,320=0,240=0C160=0,80=0,40=0L0=0Z"></path>
+                <path d="M0,288L40,288C80,288,160,288,240,256C320,224,400,160,480,154.7C560,149,640,203,720,186.7C800,171,880,85,960,48C1040,11,1120,21,1200,48C1280,75,1360,117,1400,138.7L1440,160L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800=0,720=0C640=0,560=0,480=0C400=0,320=0,240=0C160=0,80=0,40=0L0=0Z"></path>
             </svg>
         </div>
 
@@ -476,9 +482,9 @@
             </span>
         </p>
 
-        <!-- 1 - Veggies Section (one line break below intro) -->
+        <!-- Veggies Section -->
         <div class="category-container">
-            <h2 class="step-title">1 - Click on some veggies<span class="sub-step">I recommend more than one!</span></h2>
+            <h2 class="step-title">Choose some favorite veggies</h2>
             <div class="button-container">
                 <div class="food-button" data-food="Asparagus"><img src="images1/Asparagus.png" alt="Asparagus"></div>
                 <div class="food-button" data-food="Tomatoes"><img src="images1/Tomatoes.png" alt="Tomatoes"></div>
@@ -505,11 +511,11 @@
                 <div class="food-button" data-food="Cauliflower"><img src="images1/Cauliflower.png" alt="Cauliflower"></div>
                 <div class="food-button" data-food="Brussels sprouts"><img src="images1/Brussels sprouts.png" alt="Brussels sprouts"></div>
             </div>
-            <button class="category-done-btn" data-category="veggies">That's all for my veggies</button>
         </div>
 
+        <!-- Side Dish Section -->
         <div class="category-container">
-            <h2 class="step-title">2 - Now the side dish?</h2>
+            <h2 class="step-title">Next, go for the side dish!</h2>
             <div class="button-container">
                 <div class="food-button" data-food="Potatoes"><img src="images1/Potatoes.png" alt="Potatoes"></div>
                 <div class="food-button" data-food="Rice"><img src="images1/Rice.png" alt="Rice"></div>
@@ -524,11 +530,11 @@
                 <div class="food-button" data-food="Gnocchi"><img src="images1/Gnocchi.png" alt="Gnocchi"></div>
                 <div class="food-button" data-food="Couscous"><img src="images1/Couscous.png" alt="Couscous"></div>
             </div>
-            <button class="category-done-btn" data-category="sides">Take me to the final step</button>
         </div>
 
+        <!-- Meat/Fish/Vegan Section -->
         <div class="category-container">
-            <h2 class="step-title">3. Click to add meat or fish or will it be vegan today?</h2>
+            <h2 class="step-title">Next, fish, meat or vegan?</h2>
             <div class="button-container">
                 <div class="food-button" data-food="Chicken filet"><img src="images1/Chicken filet.png" alt="Chicken filet"></div>
                 <div class="food-button" data-food="Meatballs"><img src="images1/Meatballs.png" alt="Meatballs"></div>
@@ -544,6 +550,7 @@
             </div>
         </div>
 
+        <!-- Optional Add-ons -->
         <div class="option-section">
             <h2 class="step-title">Optional Add-ons:</h2>
             <div class="option-buttons">
@@ -554,6 +561,7 @@
             </div>
         </div>
 
+        <!-- Input/Output + Show Recipes -->
         <div class="input-output-container">
             <div class="input-wrapper">
                 <textarea class="typing-box" id="typingBox" readonly>I need inspiration for today's kids-proof recipes based on:</textarea>
@@ -631,7 +639,7 @@
                 });
             });
 
-            // Handle category done button clicks
+            // categoryDoneButtons are now hidden, but keep logic if needed
             categoryDoneButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     console.log(`Done selecting ${btn.getAttribute('data-category')}!`);
